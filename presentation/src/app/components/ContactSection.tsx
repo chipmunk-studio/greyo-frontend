@@ -17,7 +17,7 @@ export function ContactSection({ view }: ContactSectionProps) {
               <h2 className="mt-5 text-[clamp(28px,3.6vw,46px)] leading-[1.25] font-extrabold tracking-[-0.03em] text-greyo-body">
                 {view.heading}
               </h2>
-              <p className="mt-4 text-[clamp(15px,1.2vw,17px)] text-greyo-muted">{view.lead}</p>
+              <p className="greyo-text mt-4 text-greyo-muted">{view.lead}</p>
             </div>
 
             <a href={`mailto:${view.email}`} className="greyo-btn greyo-btn--primary shrink-0">

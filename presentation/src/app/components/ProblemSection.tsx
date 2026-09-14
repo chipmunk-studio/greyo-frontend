@@ -24,12 +24,12 @@ export function ProblemSection({ view }: ProblemSectionProps) {
           </GreyoReveal>
 
           <GreyoReveal delay={120}>
-            <p className="greyo-block-label">{view.gapsLabel}</p>
+            <p className="greyo-label text-greyo-muted">{view.gapsLabel}</p>
             <ul className="greyo-rule-list mt-5">
               {view.gaps.map((gap) => (
                 <li key={gap.key} className="py-5">
-                  <p className="text-[17px] font-bold text-greyo-body">{gap.title}</p>
-                  <p className="mt-1.5 text-[14px] leading-[1.7] text-greyo-muted">{gap.body}</p>
+                  <p className="greyo-item-title text-greyo-body">{gap.title}</p>
+                  <p className="greyo-text mt-2 text-greyo-muted">{gap.body}</p>
                 </li>
               ))}
             </ul>
@@ -54,11 +54,11 @@ export function ProblemSection({ view }: ProblemSectionProps) {
                   {stat.value}
                   <span className="ml-0.5 text-[0.42em] font-bold">{stat.unit}</span>
                 </p>
-                <p className="mt-3 text-[13px] leading-[1.6] text-greyo-muted">{stat.caption}</p>
+                <p className="greyo-caption mt-3 text-greyo-muted">{stat.caption}</p>
               </div>
             ))}
           </div>
-          <p className="mt-5 text-[12px] text-greyo-faint">{view.statsLabel}</p>
+          <p className="greyo-caption mt-5 text-greyo-faint">{view.statsLabel}</p>
         </GreyoReveal>
       </GreyoShell>
     </section>

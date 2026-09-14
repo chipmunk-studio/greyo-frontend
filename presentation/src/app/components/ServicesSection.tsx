@@ -21,10 +21,8 @@ export function ServicesSection({ view }: ServicesSectionProps) {
                 key={item.key}
                 className="flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-10"
               >
-                <span className="w-[11rem] shrink-0 text-[clamp(18px,1.9vw,23px)] font-extrabold tracking-[-0.02em] text-white">
-                  {item.name}
-                </span>
-                <span className="flex-1 text-[14px] leading-[1.7] text-white/55">{item.body}</span>
+                <span className="greyo-item-name w-[11rem] shrink-0 text-white">{item.name}</span>
+                <span className="greyo-text flex-1 text-white/60">{item.body}</span>
               </li>
             ))}
           </ul>

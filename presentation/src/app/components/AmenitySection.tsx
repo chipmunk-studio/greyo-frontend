@@ -21,26 +21,24 @@ export function AmenitySection({ view }: AmenitySectionProps) {
                 key={item.key}
                 className="flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8"
               >
-                <span className="w-[13rem] shrink-0 text-[clamp(17px,1.7vw,20px)] font-bold text-greyo-body">
+                <span className="greyo-item-title w-[13rem] shrink-0 text-greyo-body">
                   {item.name}
                 </span>
 
-                <span className="flex-1 text-[14px] leading-[1.7] text-greyo-muted">
-                  {item.body}
-                </span>
+                <span className="greyo-text flex-1 text-greyo-muted">{item.body}</span>
 
                 <span className="shrink-0 sm:w-40 sm:text-right">
                   {item.isMonthly ? (
                     <>
-                      <span className="text-[clamp(18px,1.8vw,22px)] font-extrabold tracking-[-0.02em] text-greyo-body tabular-nums">
+                      <span className="text-[clamp(20px,1.9vw,25px)] font-extrabold tracking-[-0.02em] text-greyo-body tabular-nums">
                         {item.fee}
                       </span>
-                      <span className="ml-1 text-[12px] font-bold text-greyo-muted">
+                      <span className="ml-1 text-[13px] font-bold text-greyo-muted">
                         {view.feeUnit}
                       </span>
                     </>
                   ) : (
-                    <span className="text-[14px] font-bold text-greyo-orange-strong">
+                    <span className="greyo-caption font-bold text-greyo-orange-strong">
                       {item.fee}
                     </span>
                   )}
@@ -49,7 +47,7 @@ export function AmenitySection({ view }: AmenitySectionProps) {
             ))}
           </ul>
 
-          <p className="mt-6 text-[12px] text-greyo-faint">{view.note}</p>
+          <p className="greyo-caption mt-6 text-greyo-faint">{view.note}</p>
         </GreyoReveal>
       </GreyoShell>
     </section>

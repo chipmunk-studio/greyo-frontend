@@ -32,7 +32,7 @@ export function VisionSection({ view }: VisionSectionProps) {
                     <ArrowRightIcon className="text-white/25 sm:hidden" />
                   )}
                 </div>
-                <p className="mt-2 text-[13px] leading-[1.6] text-white/50">{step.body}</p>
+                <p className="greyo-caption mt-2 text-white/55">{step.body}</p>
               </li>
             ))}
           </ol>
@@ -44,9 +44,7 @@ export function VisionSection({ view }: VisionSectionProps) {
             <p className="text-[clamp(28px,4.2vw,54px)] leading-[1.3] font-extrabold tracking-[-0.03em] text-white">
               {renderRichText(view.statement.title)}
             </p>
-            <p className="mt-5 max-w-[58ch] text-[clamp(14px,1.3vw,17px)] leading-[1.75] text-white/55">
-              {view.statement.body}
-            </p>
+            <p className="greyo-text mt-5 max-w-[58ch] text-white/60">{view.statement.body}</p>
           </div>
         </GreyoReveal>
 

@@ -15,10 +15,10 @@ export function SiteFooter({ view }: SiteFooterProps) {
         <div className="flex flex-col gap-10 border-t border-greyo-ink-line pt-10 lg:flex-row lg:justify-between">
           <div>
             <GreyoWordmark size="22px" className="text-white" />
-            <p className="mt-3 text-[13px] text-white/45">{view.tagline}</p>
+            <p className="greyo-caption mt-3 text-white/50">{view.tagline}</p>
           </div>
 
-          <address className="text-[12px] leading-[1.9] text-white/40 not-italic">
+          <address className="text-[13px] leading-[1.9] text-white/45 not-italic">
             <p className="font-bold text-white/60">{company.legalName}</p>
             <p>
               {company.representativeLabel} {company.representative}

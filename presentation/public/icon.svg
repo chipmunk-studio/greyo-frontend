@@ -1,7 +1,12 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64">
-  <rect width="64" height="64" rx="14" fill="#111214"/>
-  <text x="50%" y="50%" dy="0.36em" text-anchor="middle"
-        font-family="Pretendard, -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif"
-        font-size="34" font-weight="800" letter-spacing="-1.5" fill="#ffffff">G</text>
-  <circle cx="49" cy="44" r="5" fill="#ff6b1a"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" width="64" height="64" role="img" aria-label="GREYO">
+  <!--
+    파비콘은 16px 에서 읽혀야 한다.
+    - 글자를 <text> 로 두면 폰트 폴백에 따라 렌더가 달라져 패스로 그렸다.
+    - 오렌지 타일 — 다크 탭바에서 잉크색 타일은 배경에 묻힌다.
+    - 워드마크의 오렌지 점은 16px 에서 2px 라 노이즈만 돼 넣지 않았다.
+  -->
+  <rect width="64" height="64" rx="14" fill="#ff6b1a"/>
+  <path d="M44.7 17.9A19 19 0 1 0 51 32H36"
+        fill="none" stroke="#ffffff" stroke-width="10"
+        stroke-linecap="round" stroke-linejoin="round"/>
 </svg>

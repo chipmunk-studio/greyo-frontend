@@ -28,7 +28,7 @@ export function MembershipSection({ view }: MembershipSectionProps) {
                 }`}
               >
                 <p
-                  className={`text-[12px] font-bold ${
+                  className={`greyo-label ${
                     plan.featured ? 'text-greyo-orange' : 'text-greyo-faint'
                   }`}
                 >
@@ -47,7 +47,7 @@ export function MembershipSection({ view }: MembershipSectionProps) {
                   ) : (
                     <>
                       <span
-                        className={`text-[13px] font-bold ${
+                        className={`text-[15px] font-bold ${
                           plan.featured ? 'text-white/50' : 'text-greyo-muted'
                         }`}
                       >
@@ -61,7 +61,7 @@ export function MembershipSection({ view }: MembershipSectionProps) {
                         {plan.fee}
                       </span>
                       <span
-                        className={`text-[14px] font-bold ${
+                        className={`text-[15px] font-bold ${
                           plan.featured ? 'text-white/50' : 'text-greyo-muted'
                         }`}
                       >
@@ -72,14 +72,14 @@ export function MembershipSection({ view }: MembershipSectionProps) {
                 </p>
 
                 <p
-                  className={`mt-6 text-[18px] leading-[1.45] font-bold ${
+                  className={`greyo-item-title mt-6 leading-[1.45] ${
                     plan.featured ? 'text-white' : 'text-greyo-body'
                   }`}
                 >
                   {plan.title}
                 </p>
                 <p
-                  className={`mt-3 text-[14px] leading-[1.75] ${
+                  className={`greyo-text mt-3 ${
                     plan.featured ? 'text-white/60' : 'text-greyo-muted'
                   }`}
                 >
@@ -92,7 +92,7 @@ export function MembershipSection({ view }: MembershipSectionProps) {
                   }`}
                 >
                   <p
-                    className={`text-[11px] font-bold tracking-[0.08em] ${
+                    className={`text-[12px] font-bold tracking-[0.06em] ${
                       plan.featured ? 'text-white/40' : 'text-greyo-faint'
                     }`}
                   >
@@ -102,7 +102,7 @@ export function MembershipSection({ view }: MembershipSectionProps) {
                     {plan.includes.map((item) => (
                       <li
                         key={item}
-                        className={`flex gap-2 text-[14px] ${
+                        className={`greyo-text flex gap-2 ${
                           plan.featured ? 'text-white/80' : 'text-greyo-body'
                         }`}
                       >
@@ -123,18 +123,18 @@ export function MembershipSection({ view }: MembershipSectionProps) {
         <GreyoReveal>
           <div className="mt-14 border-t border-greyo-line pt-10">
             <div className="flex flex-col gap-2 sm:flex-row sm:items-baseline sm:justify-between">
-              <p className="greyo-block-label">{view.rentalLabel}</p>
-              <p className="text-[13px] text-greyo-muted">{view.rentalNote}</p>
+              <p className="greyo-label text-greyo-muted">{view.rentalLabel}</p>
+              <p className="greyo-caption text-greyo-muted">{view.rentalNote}</p>
             </div>
 
             <ul className="mt-6 flex flex-wrap gap-x-12 gap-y-5">
               {view.rentals.map((module) => (
                 <li key={module.key} className="flex items-baseline gap-3">
-                  <span className="text-[16px] font-bold text-greyo-body">{module.name}</span>
-                  <span className="text-[18px] font-extrabold text-greyo-body tabular-nums">
+                  <span className="greyo-item-title text-greyo-body">{module.name}</span>
+                  <span className="text-[clamp(19px,1.7vw,22px)] font-extrabold text-greyo-body tabular-nums">
                     {module.fee}
                   </span>
-                  <span className="text-[12px] font-bold text-greyo-muted">
+                  <span className="text-[13px] font-bold text-greyo-muted">
                     {view.feeUnit} / 월
                   </span>
                 </li>
