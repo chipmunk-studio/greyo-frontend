@@ -38,39 +38,6 @@ export const STATIC_BRAND_CONTENT: BrandContent = {
     { mark: '그래요', punctuation: '…', title: '여운', body: '위로와 공감의 톤' },
   ],
 
-  namingQuestion: '“그러니까, 뭘 그렇다는 거냐고요?”',
-  namingAnswer: '“그래요. 그냥, 그렇다고요.”',
-
-  namingPeers: [
-    { name: '네이버', scope: '일상의 검색' },
-    { name: '카카오', scope: '일상의 대화' },
-    { name: '당근', scope: '일상의 동네' },
-    { name: '그래요', scope: '일상의 삶, 그 전부' },
-  ],
-
-  namingCriteria: [
-    {
-      label: 'Criteria 01',
-      title: '부르기 쉬운 발음',
-      body: 'GREYO — 해외에서도 그대로 통하는 사운드',
-    },
-    {
-      label: 'Criteria 02',
-      title: '한 번에 기억되는 이름',
-      body: '배우지 않아도 이미 알고 있는 세 글자',
-    },
-    {
-      label: 'Criteria 03',
-      title: '무한한 확장성',
-      body: '어떤 서비스명과 결합해도 자연스러운 구조',
-    },
-    {
-      label: 'Criteria 04',
-      title: '차분한 고급감',
-      body: '기능을 외치지 않는, 절제된 브랜드 톤',
-    },
-  ],
-
   namingMaster: {
     key: 'greyo',
     label: 'Master Brand',
@@ -302,32 +269,5 @@ export const STATIC_BRAND_CONTENT: BrandContent = {
       body: '노는 시간까지 설계하는 콘텐츠와 커뮤니티',
       tag: '여가',
     },
-  ],
-
-  verbalPrinciples: [
-    {
-      label: 'Principle 01',
-      title: '차분하게 말합니다',
-      body: '소리치지 않습니다. 낮은 톤의 담담한 말이 오히려 신뢰와 고급스러움을 만듭니다.',
-      sample: '**그래요.** 저희가 할게요.',
-    },
-    {
-      label: 'Principle 02',
-      title: '유희적으로 비틉니다',
-      body: '‘하찮은 감성’의 여유. 느슨한 연대를 살아가는 세대의 화법으로 가볍게 웃게 만듭니다.',
-      sample: '**그래요?** 그래그래.',
-    },
-    {
-      label: 'Principle 03',
-      title: '긍정으로 끝맺습니다',
-      body: '모든 문장은 결국 ‘그래요’로 수렴합니다. 승낙, 시작, 함께 살아가겠다는 의지로.',
-      sample: '**그래요,** 해보자고요.',
-    },
-  ],
-
-  copySamples: [
-    '**그래요,** 해보자고요.',
-    '집 문제요? **그래요,** 저희가 할게요.',
-    '**그래요…** 오늘도 살아가 보겠다고요.',
   ],
 };

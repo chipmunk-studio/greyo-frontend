@@ -29,19 +29,6 @@ export interface BrandTone {
 
 /* ── Naming ─────────────────────────────────────────────────────────────── */
 
-/** 일상어에서 태어난 브랜드 비교군 — 네이버·카카오·당근, 그리고 그래요. */
-export interface NamingPeer {
-  name: string;
-  scope: string;
-}
-
-/** 네이밍 채택 기준 4종. */
-export interface NamingCriterion {
-  label: string;
-  title: string;
-  body: string;
-}
-
 /** 어족(語族) 구성원 — 마스터(그래요)와 서브 브랜드가 같은 형태를 공유한다. */
 export interface NamingBranch {
   key: string;
@@ -124,26 +111,12 @@ export interface ServiceLine {
   tag: string;
 }
 
-/* ── Verbal Identity ────────────────────────────────────────────────────── */
-
-/** 말투 3원칙. `sample` 에 `**…**` 강조가 온다. */
-export interface VerbalPrinciple {
-  label: string;
-  title: string;
-  body: string;
-  sample: string;
-}
-
 /* ── Aggregate ──────────────────────────────────────────────────────────── */
 
 /** 브랜드를 이루는 콘텐츠 전량. 화면 구성과 무관하게 이것만으로 성립한다. */
 export interface BrandContent {
   pillars: readonly BrandPillar[];
   tones: readonly BrandTone[];
-  namingQuestion: string;
-  namingAnswer: string;
-  namingPeers: readonly NamingPeer[];
-  namingCriteria: readonly NamingCriterion[];
   namingMaster: NamingBranch;
   namingBranches: readonly NamingBranch[];
   definition: string;
@@ -155,6 +128,4 @@ export interface BrandContent {
   amenitySwaps: readonly AmenitySwap[];
   solutionPrinciples: readonly SolutionPrinciple[];
   services: readonly ServiceLine[];
-  verbalPrinciples: readonly VerbalPrinciple[];
-  copySamples: readonly string[];
 }

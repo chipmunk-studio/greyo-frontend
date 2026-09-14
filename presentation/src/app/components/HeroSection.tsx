@@ -1,47 +1,39 @@
-import { GreyoEyebrow, GreyoShell, renderRichText } from '@greyo-frontend/design-system';
+import { GreyoShell, renderRichText } from '@greyo-frontend/design-system';
 import type { HeroViewData } from '../viewData/brandPageViewData';
 
 interface HeroSectionProps {
   view: HeroViewData;
 }
 
-/** 히어로 — 브랜딩소개서 표지 그대로. 다크 배경 + 초대형 워드마크 + 태그라인. */
+/** 히어로 — 회사가 무엇을 하는지 한 문장으로 말하고 다음 행동을 준다. */
 export function HeroSection({ view }: HeroSectionProps) {
   return (
-    <section
-      id="top"
-      className="greyo-on-dark relative flex min-h-[92svh] items-center bg-greyo-ink"
-    >
+    <section id="top" className="greyo-on-dark relative flex min-h-svh items-center bg-greyo-ink">
       <GreyoShell>
-        <div className="py-24">
-          <GreyoEyebrow label={view.eyebrow} />
+        <div className="max-w-[54ch] py-32">
+          <p className="greyo-eyebrow">{view.eyebrow}</p>
 
-          {/* 히어로에서만 초대형이라 GreyoWordmark 대신 직접 조판한다. */}
-          <h1 className="mt-10 flex items-baseline text-[clamp(64px,13vw,184px)] leading-none font-extrabold tracking-[-0.03em] text-white">
-            GREYO
-            <i
-              className="ml-[0.05em] inline-block rounded-full bg-greyo-orange"
-              style={{ width: '0.17em', height: '0.17em' }}
-              aria-hidden
-            />
+          <h1 className="mt-7 text-[clamp(36px,6.4vw,84px)] leading-[1.14] font-extrabold tracking-[-0.035em] text-white">
+            {renderRichText(view.heading)}
           </h1>
 
-          <p className="greyo-spaced mt-6 text-[clamp(13px,1.4vw,18px)] font-medium text-white/55">
-            {view.spaced}
+          <p className="mt-8 text-[clamp(15px,1.35vw,19px)] leading-[1.75] whitespace-pre-line text-white/60">
+            {view.lead}
           </p>
 
-          <p className="mt-12 text-[clamp(22px,2.9vw,40px)] font-bold tracking-[-0.02em] text-white">
-            {renderRichText(view.tagline)}
-          </p>
-
-          <p className="mt-5 max-w-[52ch] text-[clamp(14px,1.15vw,17px)] leading-relaxed text-white/60">
-            {view.description}
-          </p>
+          <div className="mt-11 flex flex-wrap gap-3">
+            <a href={view.primaryCta.href} className="greyo-btn greyo-btn--primary">
+              {view.primaryCta.label}
+            </a>
+            <a href={view.secondaryCta.href} className="greyo-btn greyo-btn--ghost">
+              {view.secondaryCta.label}
+            </a>
+          </div>
         </div>
       </GreyoShell>
 
       <div
-        className="absolute inset-x-0 bottom-8 flex justify-center text-[11px] font-bold tracking-[0.24em] text-white/35"
+        className="absolute inset-x-0 bottom-9 hidden justify-center text-[11px] font-bold tracking-[0.24em] text-white/30 uppercase sm:flex"
         aria-hidden
       >
         {view.scrollCue}

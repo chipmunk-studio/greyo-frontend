@@ -112,6 +112,13 @@
   color: var(--accent);
 }
 
+/* 한글은 어절 단위로 끊어야 한다 — 기본값이면 '할게 / 요.' 처럼 단어 중간이 갈린다.
+   긴 URL·영문 토큰은 overflow-wrap 으로 흘려보낸다. */
+.greyo-site {
+  word-break: keep-all;
+  overflow-wrap: break-word;
+}
+
 .greyo-lead {
   margin-top: 20px;
   max-width: 62ch;
@@ -238,6 +245,92 @@
   height: 2px;
   border-radius: 2px;
   background: var(--accent);
+}
+
+/* ── 편집형 레이아웃 ───────────────────────────────────────────
+   덱은 모든 걸 카드에 담지만 웹사이트는 그러면 리듬이 죽는다.
+   구분선으로 끊는 리스트·수치 스트립을 기본으로 쓰고 카드는 아껴 쓴다. */
+
+/** 블록 위에 붙는 작은 라벨. 섹션 헤드라인보다 한 단계 아래. */
+.greyo-block-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.02em;
+  color: var(--text-faint);
+}
+
+/** 수평 구분선으로만 나뉘는 리스트 — 테두리 카드 대신. */
+.greyo-rule-list > * + * {
+  border-top: 1px solid var(--border-hairline);
+}
+
+.greyo-on-dark .greyo-rule-list > * + * {
+  border-top-color: var(--ink-line);
+}
+
+/** 수치 스트립 — 항목 사이만 세로선, 모바일에선 가로선. */
+.greyo-stat-strip > * + * {
+  border-top: 1px solid var(--border-hairline);
+}
+
+@media (min-width: 640px) {
+  .greyo-stat-strip > * + * {
+    border-top: 0;
+    border-left: 1px solid var(--border-hairline);
+  }
+}
+
+/* ── 버튼 ──────────────────────────────────────────────────── */
+.greyo-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  min-height: 48px;
+  padding-inline: 26px;
+  border-radius: 9999px;
+  font-size: 15px;
+  font-weight: 700;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease,
+    border-color 0.2s ease;
+}
+
+.greyo-btn--primary {
+  background: var(--accent);
+  color: var(--white);
+}
+
+.greyo-btn--primary:hover {
+  background: var(--orange-600);
+}
+
+/** 다크 배경 위 보조 버튼. */
+.greyo-btn--ghost {
+  border: 1px solid rgba(255, 255, 255, 0.25);
+  color: var(--white);
+}
+
+.greyo-btn--ghost:hover {
+  border-color: rgba(255, 255, 255, 0.55);
+}
+
+/** 밝은 배경 위 보조 버튼. */
+.greyo-btn--outline {
+  border: 1px solid var(--gray-300);
+  color: var(--text-strong);
+}
+
+.greyo-btn--outline:hover {
+  border-color: var(--text-strong);
+}
+
+/* 헤더 CTA 는 한 단계 작게. */
+.greyo-btn--sm {
+  min-height: 38px;
+  padding-inline: 18px;
+  font-size: 13px;
 }
 
 /* ── 다크 섹션 위 텍스트 톤 ────────────────────────────────── */

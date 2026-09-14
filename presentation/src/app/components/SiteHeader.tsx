@@ -1,19 +1,20 @@
 import { useEffect, useState } from 'react';
 import { GreyoWordmark } from '@greyo-frontend/design-system';
-import type { NavItemViewData } from '../viewData/brandPageViewData';
+import type { LinkViewData, NavItemViewData } from '../viewData/brandPageViewData';
 
 /** 히어로를 벗어났다고 판단하는 스크롤 임계값(px). */
 const SOLID_THRESHOLD = 64;
 
 interface SiteHeaderProps {
   nav: readonly NavItemViewData[];
+  cta: LinkViewData;
 }
 
 /**
  * sticky 헤더 — 히어로(다크) 위에선 투명·흰 글자, 스크롤하면 흰 배경으로 전환한다.
  * 앵커 활성 표시는 IntersectionObserver 로 계산한다.
  */
-export function SiteHeader({ nav }: SiteHeaderProps) {
+export function SiteHeader({ nav, cta }: SiteHeaderProps) {
   const [solid, setSolid] = useState(false);
   const [activeId, setActiveId] = useState('');
 
@@ -52,22 +53,31 @@ export function SiteHeader({ nav }: SiteHeaderProps) {
           <GreyoWordmark size="20px" />
         </a>
 
-        <nav aria-label="섹션 바로가기">
-          <ul className="hidden items-center gap-7 md:flex">
-            {nav.map((item) => (
-              <li key={item.id}>
-                <a
-                  href={`#${item.id}`}
-                  className="greyo-navlink"
-                  data-active={activeId === item.id}
-                  aria-current={activeId === item.id ? 'true' : undefined}
-                >
-                  {item.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </nav>
+        <div className="flex items-center gap-8">
+          <nav aria-label="섹션 바로가기">
+            <ul className="hidden items-center gap-7 md:flex">
+              {nav.map((item) => (
+                <li key={item.id}>
+                  <a
+                    href={`#${item.id}`}
+                    className="greyo-navlink"
+                    data-active={activeId === item.id}
+                    aria-current={activeId === item.id ? 'true' : undefined}
+                  >
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+
+          <a
+            href={cta.href}
+            className={`greyo-btn greyo-btn--sm ${solid ? 'greyo-btn--outline' : 'greyo-btn--ghost'}`}
+          >
+            {cta.label}
+          </a>
+        </div>
       </div>
     </header>
   );

@@ -1,5 +1,4 @@
 import {
-  GreyoCard,
   GreyoReveal,
   GreyoSectionIntro,
   GreyoShell,
@@ -11,58 +10,63 @@ interface ProblemSectionProps {
   view: ProblemViewData;
 }
 
-/** 04 The Problem — 원룸 결핍 6종 + 공개 시장 통계 + 인사이트. */
+/**
+ * 왜 이 사업을 하는가 — 결핍 6종과 시장 수치.
+ * 덱에서는 카드 6장 + 카드 4장이었지만, 여기서는 구분선 리스트와 수치 스트립으로 편다.
+ */
 export function ProblemSection({ view }: ProblemSectionProps) {
   return (
-    <section id="problem" className="greyo-section bg-greyo-surface">
+    <section className="greyo-section">
       <GreyoShell>
-        <GreyoReveal>
-          <GreyoSectionIntro {...view.intro} />
-        </GreyoReveal>
+        <div className="grid gap-14 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:gap-20">
+          <GreyoReveal>
+            <GreyoSectionIntro {...view.intro} />
+          </GreyoReveal>
 
-        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {view.gaps.map((gap, i) => (
-            <GreyoReveal key={gap.num} delay={i * 60}>
-              {/* BRD p3 시안 — 번호가 제목 위에 크고 옅게 온다. */}
-              <GreyoCard className="h-full">
-                <p
-                  className="text-[clamp(34px,3.4vw,44px)] leading-none font-extrabold tracking-[-0.03em] text-greyo-ghost"
-                  aria-hidden
-                >
-                  {gap.num}
-                </p>
-                <h3 className="mt-5 text-[18px] font-bold text-greyo-body">{gap.title}</h3>
-                <p className="mt-3 text-[14px] leading-[1.7] text-greyo-muted">{gap.body}</p>
-              </GreyoCard>
-            </GreyoReveal>
-          ))}
+          <GreyoReveal delay={120}>
+            <p className="greyo-block-label">{view.gapsLabel}</p>
+            <ul className="greyo-rule-list mt-5">
+              {view.gaps.map((gap) => (
+                <li key={gap.num} className="flex gap-5 py-5">
+                  <span className="w-6 shrink-0 pt-0.5 text-[13px] font-bold text-greyo-faint tabular-nums">
+                    {gap.num}
+                  </span>
+                  <span>
+                    <span className="block text-[17px] font-bold text-greyo-body">{gap.title}</span>
+                    <span className="mt-1.5 block text-[14px] leading-[1.7] text-greyo-muted">
+                      {gap.body}
+                    </span>
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </GreyoReveal>
         </div>
 
         <GreyoReveal>
-          <div className="mt-5 rounded-panel border-l-[3px] border-greyo-orange bg-greyo-orange-soft px-7 py-6">
-            <p className="text-[clamp(14px,1.25vw,17px)] leading-[1.75] text-greyo-body">
-              {renderRichText(view.insight)}
-            </p>
-          </div>
+          <p className="mt-16 max-w-[68ch] border-l-[3px] border-greyo-orange pl-6 text-[clamp(16px,1.5vw,21px)] leading-[1.7] font-semibold text-greyo-body">
+            {renderRichText(view.insight)}
+          </p>
         </GreyoReveal>
 
-        <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {view.stats.map((stat, i) => (
-            <GreyoReveal key={stat.key} delay={i * 70}>
-              <GreyoCard className="h-full">
+        <GreyoReveal>
+          <div className="greyo-stat-strip mt-16 grid border-t border-greyo-line pt-10 sm:grid-cols-3">
+            {view.stats.map((stat) => (
+              <div key={stat.key} className="py-6 sm:px-8 sm:py-0 sm:first:pl-0">
                 <p
-                  className={`text-[clamp(28px,3.2vw,40px)] leading-none font-extrabold tracking-[-0.03em] ${
+                  className={`text-[clamp(32px,3.6vw,46px)] leading-none font-extrabold tracking-[-0.03em] ${
                     stat.emphasis ? 'text-greyo-orange' : 'text-greyo-body'
                   }`}
                 >
                   {stat.value}
-                  <span className="ml-0.5 text-[0.45em] font-bold">{stat.unit}</span>
+                  <span className="ml-0.5 text-[0.42em] font-bold">{stat.unit}</span>
                 </p>
-                <p className="mt-4 text-[13px] leading-[1.6] text-greyo-muted">{stat.caption}</p>
-              </GreyoCard>
-            </GreyoReveal>
-          ))}
-        </div>
+                <p className="mt-3 text-[13px] leading-[1.6] text-greyo-muted">{stat.caption}</p>
+              </div>
+            ))}
+          </div>
+          <p className="mt-5 text-[12px] text-greyo-faint">{view.statsLabel}</p>
+        </GreyoReveal>
       </GreyoShell>
     </section>
   );
