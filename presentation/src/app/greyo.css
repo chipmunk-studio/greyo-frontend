@@ -1,0 +1,253 @@
+/* ==========================================================================
+   GREYO 브랜드 소개 원페이지 전용 스타일.
+   브랜딩소개서 v1 / BRD v2.3 시안 토큰을 `.greyo-site` 스코프에 격리 복사.
+   색은 전부 여기서 정의하고 ds.tsx 는 var() 로만 참조한다.
+   ========================================================================== */
+
+.greyo-site {
+  /* ── Base palette ───────────────────────────────────────── */
+  --ink-900: #111214;
+  --ink-800: #1a1c20;
+  --ink-700: #24272d;
+  --ink-line: #2a2d33;
+
+  --orange-600: #f25c0a;
+  --orange-500: #ff6b1a;
+  --orange-400: #ff8a48;
+  --orange-050: #fff1e8;
+
+  --blue-600: #2563eb;
+  --blue-050: #eef3ff;
+
+  --white: #ffffff;
+  --gray-050: #f7f8fa;
+  --gray-100: #f2f4f7;
+  --gray-200: #edeff2;
+  --gray-300: #dfe2e8;
+  --gray-400: #b6bcc7;
+  --gray-500: #9ca3af;
+  --gray-600: #6b7280;
+  --gray-700: #4b5563;
+  --gray-900: #111827;
+
+  /* ── Semantic aliases ───────────────────────────────────── */
+  --accent: var(--orange-500);
+  --accent-soft: var(--orange-050);
+  --surface-card: var(--gray-050);
+  --surface-dark: var(--ink-900);
+  --border-hairline: var(--gray-200);
+  --text-strong: var(--gray-900);
+  --text-body: var(--gray-700);
+  --text-muted: var(--gray-600);
+  --text-faint: var(--gray-500);
+
+  --radius-card: 16px;
+  --radius-panel: 22px;
+}
+
+/* ── 워드마크 ───────────────────────────────────────────────
+   공식 로고 SVG 확보 전까지의 조판 구현. Pretendard 800 + 오렌지 점. */
+.greyo-wordmark {
+  display: inline-flex;
+  align-items: baseline;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1;
+}
+
+.greyo-wordmark__dot {
+  display: inline-block;
+  border-radius: 9999px;
+  background: var(--accent);
+  width: 0.19em;
+  height: 0.19em;
+  margin-left: 0.06em;
+}
+
+/** 그 래 요 — 자간을 크게 벌린 한글 병기. */
+.greyo-spaced {
+  letter-spacing: 0.42em;
+}
+
+/* ── 섹션 공통 ─────────────────────────────────────────────── */
+.greyo-section {
+  padding-block: clamp(72px, 9vw, 140px);
+}
+
+.greyo-shell {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: clamp(20px, 5vw, 40px);
+}
+
+.greyo-eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.greyo-eyebrow__index {
+  color: var(--text-faint);
+}
+
+.greyo-heading {
+  margin-top: 18px;
+  font-size: clamp(28px, 3.8vw, 52px);
+  font-weight: 800;
+  line-height: 1.28;
+  letter-spacing: -0.025em;
+  color: var(--text-strong);
+  text-wrap: balance;
+}
+
+.greyo-heading em {
+  font-style: normal;
+  color: var(--accent);
+}
+
+.greyo-lead {
+  margin-top: 20px;
+  max-width: 62ch;
+  font-size: clamp(15px, 1.1vw, 17px);
+  line-height: 1.75;
+  color: var(--text-muted);
+}
+
+/* ── 카드 ──────────────────────────────────────────────────── */
+.greyo-card {
+  border: 1px solid var(--border-hairline);
+  border-radius: var(--radius-card);
+  background: var(--white);
+  padding: clamp(22px, 2.2vw, 30px);
+}
+
+.greyo-card--filled {
+  background: var(--surface-card);
+  border-color: transparent;
+}
+
+.greyo-card--accent {
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+.greyo-card--dark {
+  background: var(--surface-dark);
+  border-color: transparent;
+  color: var(--white);
+}
+
+/* ghost numeral — 카드 우하단에 옅게 깔리는 01~08 */
+.greyo-ghost-num {
+  position: absolute;
+  right: clamp(16px, 1.8vw, 26px);
+  bottom: clamp(4px, 0.8vw, 10px);
+  font-size: clamp(54px, 6vw, 84px);
+  font-weight: 800;
+  line-height: 1;
+  letter-spacing: -0.04em;
+  color: var(--gray-200);
+  pointer-events: none;
+  user-select: none;
+}
+
+.greyo-card--dark .greyo-ghost-num {
+  color: rgba(255, 255, 255, 0.07);
+}
+
+/* ── 스크롤 리빌 ───────────────────────────────────────────────
+   프리렌더된 HTML 에는 본문 텍스트가 그대로 들어 있으므로(크롤러는 opacity 를
+   보지 않는다) 초기 숨김이 SEO 에 영향을 주지 않는다. JS 를 끈 브라우저는
+   root.tsx 의 <noscript> 스타일이 숨김을 해제한다. */
+.greyo-reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition:
+    opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
+    transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.greyo-reveal[data-revealed='true'] {
+  opacity: 1;
+  transform: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .greyo-reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* ── 헤더 ──────────────────────────────────────────────────── */
+.greyo-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  /* 헤더 높이(64px)만큼 끌어올려 히어로 위에 겹치게 한다 — 다크 히어로 위 투명 헤더. */
+  margin-bottom: -64px;
+  border-bottom: 1px solid transparent;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    color 0.3s ease;
+}
+
+/* 히어로(다크) 위에 떠 있는 초기 상태 */
+.greyo-header[data-solid='false'] {
+  background: transparent;
+  color: var(--white);
+}
+
+/* 스크롤 후 — 흰 배경으로 고정 */
+.greyo-header[data-solid='true'] {
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom-color: var(--border-hairline);
+  color: var(--text-strong);
+}
+
+.greyo-navlink {
+  position: relative;
+  font-size: 14px;
+  font-weight: 600;
+  color: currentColor;
+  opacity: 0.68;
+  transition: opacity 0.2s ease;
+}
+
+.greyo-navlink:hover,
+.greyo-navlink[data-active='true'] {
+  opacity: 1;
+}
+
+.greyo-navlink[data-active='true']::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -6px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--accent);
+}
+
+/* ── 다크 섹션 위 텍스트 톤 ────────────────────────────────── */
+.greyo-on-dark {
+  color: var(--white);
+}
+
+.greyo-on-dark .greyo-heading {
+  color: var(--white);
+}
+
+.greyo-on-dark .greyo-lead {
+  color: rgba(255, 255, 255, 0.66);
+}

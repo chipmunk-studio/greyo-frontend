@@ -1,0 +1,13 @@
+{
+  "name": "@greyo-frontend/di",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "//": "합성 루트(composition root) — 구현체를 유스케이스에 배선하는 유일한 지점.",
+  "dependencies": {
+    "@greyo-frontend/application": "*",
+    "@greyo-frontend/infrastructure": "*"
+  }
+}

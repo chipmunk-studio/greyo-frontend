@@ -1,0 +1,17 @@
+node_modules
+build
+.react-router
+.turbo
+.vercel
+coverage
+*.tsbuildinfo
+.DS_Store
+.vscode
+.claude
+
+# IDE 개인 설정은 무시하되 팀 공용 실행 설정은 공유한다.
+.idea/*
+!.idea/runConfigurations/
+infrastructure/.env
+infrastructure/.env.*
+!infrastructure/.env.example

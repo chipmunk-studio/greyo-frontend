@@ -1,0 +1,23 @@
+{
+  "name": "presentation",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "react-router dev --mode development --port 3300 --strictPort --open",
+    "build": "react-router build",
+    "preview": "vite preview --port 3300 --strictPort --open",
+    "routes": "react-router routes",
+    "typecheck": "react-router typegen && tsc --noEmit"
+  },
+  "//": "외부 의존성은 root package.json 에서 정확한 버전으로 관리하고, 이 workspace 에는 내부 패키지만 선언한다.",
+  "dependencies": {
+    "@greyo-frontend/assets": "*",
+    "@greyo-frontend/core": "*",
+    "@greyo-frontend/design-system": "*",
+    "@greyo-frontend/di": "*",
+    "@greyo-frontend/entities": "*",
+    "isbot": "5.2.2",
+    "pretendard": "1.3.9"
+  }
+}

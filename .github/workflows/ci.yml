@@ -1,0 +1,32 @@
+name: CI
+
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - run: npm run format:check
+
+      - run: npm run lint
+
+      - run: npm run typecheck
+
+      - run: npm run build
+
+      # 프리렌더 계약 가드 — index.html 이 본문 없는 셸로 떨어지면 SEO·OG 가 조용히 깨진다.
+      - name: prerender 본문 확인
+        run: grep -qF '일상을 연결하는 어반 테크 기업' presentation/build/client/index.html

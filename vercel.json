@@ -1,0 +1,11 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "//": "정적 파일이 있으면 그게 먼저 서빙된다(/ → 프리렌더된 index.html). 없는 경로만 SPA 폴백으로 보내 404 라우트를 클라이언트에서 그리게 한다.",
+  "rewrites": [{ "source": "/(.*)", "destination": "/__spa-fallback.html" }],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    }
+  ]
+}

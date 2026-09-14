@@ -1,0 +1,12 @@
+{
+  "name": "@greyo-frontend/application",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "//": "유스케이스·리포지토리 인터페이스 레이어 — 구현은 infrastructure 가 가진다.",
+  "dependencies": {
+    "@greyo-frontend/entities": "*"
+  }
+}

@@ -1,0 +1,14 @@
+{
+  "name": "@greyo-frontend/infrastructure",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "//": "데이터소스·리포지토리 구현 레이어. .env.* 소유. presentation 은 여기를 직접 import 하지 않는다(di 경유).",
+  "dependencies": {
+    "@greyo-frontend/application": "*",
+    "@greyo-frontend/core": "*",
+    "@greyo-frontend/entities": "*"
+  }
+}

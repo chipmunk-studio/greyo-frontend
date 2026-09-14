@@ -1,0 +1,54 @@
+@import 'tailwindcss';
+
+/* design-system 패키지의 클래스명도 Tailwind 스캔 대상에 넣는다. */
+@source "../../../design-system/src/**/*.{ts,tsx}";
+
+/* ==========================================================================
+   GREYO 브랜드 사이트 전역 토큰.
+   Tailwind v4 CSS-first — 설정 파일 없이 @theme inline 으로 유틸리티를 생성한다.
+   폰트는 next/font 변수 주입이 아니라 Pretendard 가족명 직접 참조(root.tsx 에서 CSS import).
+   ========================================================================== */
+
+@theme inline {
+  /* --- 브랜드 팔레트 (브랜딩소개서 v1 시안 기준) --- */
+  --color-greyo-ink: #111214;
+  --color-greyo-ink-soft: #1a1c20;
+  --color-greyo-ink-line: #2a2d33;
+  --color-greyo-orange: #ff6b1a;
+  --color-greyo-orange-strong: #f25c0a;
+  --color-greyo-orange-soft: #fff1e8;
+  --color-greyo-surface: #f7f8fa;
+  --color-greyo-line: #edeff2;
+  --color-greyo-ghost: #eceef2;
+  --color-greyo-body: #111827;
+  --color-greyo-muted: #6b7280;
+  --color-greyo-faint: #9ca3af;
+
+  /* --- 타이포 --- */
+  --font-pretendard: 'Pretendard Variable';
+  --font-sans:
+    var(--font-pretendard), -apple-system, BlinkMacSystemFont, system-ui, 'Segoe UI', Roboto,
+    sans-serif;
+
+  /* --- 레이아웃 --- */
+  --radius-card: 16px;
+  --radius-panel: 22px;
+}
+
+html {
+  scroll-behavior: smooth;
+  /* sticky 헤더 높이만큼 앵커 착지점을 내린다. */
+  scroll-padding-top: 72px;
+}
+
+body {
+  background: #ffffff;
+  color: var(--color-greyo-body);
+  font-family: var(--font-sans);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}

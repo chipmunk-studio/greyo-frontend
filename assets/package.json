@@ -1,0 +1,9 @@
+{
+  "name": "@greyo-frontend/assets",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "main": "src/index.ts",
+  "types": "src/index.ts",
+  "//": "아이콘·이미지 등 정적 에셋 레이어. 본문 폰트는 npm pretendard 를 쓰므로 폰트 파일은 두지 않는다."
+}
