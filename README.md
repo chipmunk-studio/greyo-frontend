@@ -13,14 +13,14 @@ npm install
 npm run dev        # http://localhost:3300
 ```
 
-| 스크립트            | 설명                                        |
-| ------------------- | ------------------------------------------- |
-| `npm run dev`       | 개발 서버 (3300)                            |
-| `npm run build`     | 프로덕션 빌드 → `presentation/build/client` |
-| `npm run preview`   | 빌드 결과 확인                              |
-| `npm run lint`      | ESLint                                      |
-| `npm run typecheck` | 라이브러리 레이어 + presentation 타입 검사  |
-| `npm run format`    | Prettier                                    |
+| 스크립트            | 설명                                                   |
+| ------------------- | ------------------------------------------------------ |
+| `npm run dev`       | 개발 서버 (3300). 포트가 물려 있으면 자동 정리 후 기동 |
+| `npm run build`     | 프로덕션 빌드 → `presentation/build/client`            |
+| `npm run preview`   | 빌드 결과 확인                                         |
+| `npm run lint`      | ESLint                                                 |
+| `npm run typecheck` | 라이브러리 레이어 + presentation 타입 검사             |
+| `npm run format`    | Prettier                                               |
 
 JetBrains IDE 를 쓰면 `.idea/runConfigurations/` 의 dev · build · preview · lint · typecheck 설정이 그대로 잡힌다. 두 가지가 지켜져야 Android Studio 에서도 동작한다 — skel-frontend 의 `web dev` 설정과 같은 방식이다.
 
@@ -28,6 +28,8 @@ JetBrains IDE 를 쓰면 `.idea/runConfigurations/` 의 dev · build · preview 
 - **npm 은 절대경로로 호출**(`/opt/homebrew/bin/npm`) — IDE 가 띄우는 셸에 homebrew PATH 가 없을 수 있다.
 
 설정이 목록에 안 보이면 **File → Reload All from Disk**(⌥⌘Y). `workspace.xml` 의 `autoReloadType` 이 `NONE` 이라 외부에서 추가한 `.idea` 파일은 자동으로 읽지 않는다.
+
+dev 서버를 중지하지 않고 다시 실행해도 된다 — `predev` 훅(`scripts/free-port.mjs`)이 3300 을 점유한 프로세스를 정리하고 뜬다. IDE 설정이 아니라 npm 스크립트에 걸어둔 이유는 터미널·IDE·CI 어디서 실행하든 같게 동작시키기 위해서다.
 
 ## 아키텍처
 

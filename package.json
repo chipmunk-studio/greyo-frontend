@@ -18,7 +18,10 @@
   "//": "외부 의존성 single source — 루트에서 한 번만 정확한 버전으로 선언(hoist)한다. sub-package 는 @greyo-frontend/* internal 만 명시하고 외부는 여기서 hoist 받아 쓴다.",
   "scripts": {
     "build": "turbo run build",
+    "//dev": "predev 는 npm 이 dev 직전에 자동 실행한다 — dev 서버가 --strictPort 라 포트가 물려 있으면 그냥 죽기 때문.",
+    "predev": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/free-port.mjs 3300",
     "dev": "turbo run dev --filter=presentation",
+    "prepreview": "node --disable-warning=MODULE_TYPELESS_PACKAGE_JSON scripts/free-port.mjs 3300",
     "preview": "npm run preview --workspace=presentation",
     "routes": "npm run routes --workspace=presentation",
     "lint": "eslint .",
