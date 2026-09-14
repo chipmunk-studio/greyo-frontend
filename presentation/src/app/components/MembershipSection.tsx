@@ -21,9 +21,9 @@ export function MembershipSection({ view }: MembershipSectionProps) {
           {view.plans.map((plan, i) => (
             <GreyoReveal key={plan.key} delay={i * 90} className="h-full">
               <div
-                className={`flex h-full flex-col rounded-panel p-8 ${
+                className={`greyo-lift flex h-full flex-col rounded-panel p-8 ${
                   plan.featured
-                    ? 'bg-greyo-ink text-white'
+                    ? 'greyo-lift--dark border border-greyo-ink-line bg-greyo-ink text-white'
                     : 'border border-greyo-line bg-greyo-surface'
                 }`}
               >

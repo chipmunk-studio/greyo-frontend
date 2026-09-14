@@ -5,7 +5,11 @@ interface AmenitySectionProps {
   view: AmenityViewData;
 }
 
-/** 어메니티 라인업 — 이름·설명·요금. 가격표라 행으로 읽히는 게 가장 빠르다. */
+/**
+ * 어메니티 라인업 — 카드 그리드.
+ * 요금이 붙은 '고를 수 있는 항목' 이라 카드가 맞다. 좁은 화면에서도 항목 경계가
+ * 유지돼야 해서 행 리스트에서 카드로 바꿨다.
+ */
 export function AmenitySection({ view }: AmenitySectionProps) {
   return (
     <section id="amenity" className="greyo-section bg-greyo-surface">
@@ -14,40 +18,36 @@ export function AmenitySection({ view }: AmenitySectionProps) {
           <GreyoSectionIntro {...view.intro} />
         </GreyoReveal>
 
-        <GreyoReveal>
-          <ul className="greyo-rule-list mt-14 border-t border-greyo-line">
-            {view.items.map((item) => (
-              <li
-                key={item.key}
-                className="flex flex-col gap-2 py-6 sm:flex-row sm:items-baseline sm:gap-8"
-              >
-                <span className="greyo-item-title w-[13rem] shrink-0 text-greyo-body">
-                  {item.name}
-                </span>
+        <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          {view.items.map((item, i) => (
+            <GreyoReveal key={item.key} delay={i * 55} className="h-full">
+              <article className="greyo-lift flex h-full flex-col rounded-card border border-greyo-line bg-white p-7">
+                <h3 className="greyo-item-title text-greyo-body">{item.name}</h3>
+                <p className="greyo-text mt-2.5 text-greyo-muted">{item.body}</p>
 
-                <span className="greyo-text flex-1 text-greyo-muted">{item.body}</span>
-
-                <span className="shrink-0 sm:w-40 sm:text-right">
+                <p className="mt-auto pt-7">
                   {item.isMonthly ? (
                     <>
-                      <span className="text-[clamp(20px,1.9vw,25px)] font-extrabold tracking-[-0.02em] text-greyo-body tabular-nums">
+                      <span className="text-[clamp(24px,2.2vw,30px)] font-extrabold tracking-[-0.03em] text-greyo-body tabular-nums">
                         {item.fee}
                       </span>
-                      <span className="ml-1 text-[13px] font-bold text-greyo-muted">
+                      <span className="ml-1.5 text-[13px] font-bold text-greyo-muted">
                         {view.feeUnit}
                       </span>
                     </>
                   ) : (
-                    <span className="greyo-caption font-bold text-greyo-orange-strong">
+                    <span className="inline-block rounded-full bg-greyo-orange-soft px-3.5 py-1.5 text-[13px] font-bold text-greyo-orange-strong">
                       {item.fee}
                     </span>
                   )}
-                </span>
-              </li>
-            ))}
-          </ul>
+                </p>
+              </article>
+            </GreyoReveal>
+          ))}
+        </div>
 
-          <p className="greyo-caption mt-6 text-greyo-faint">{view.note}</p>
+        <GreyoReveal>
+          <p className="greyo-caption mt-8 text-greyo-faint">{view.note}</p>
         </GreyoReveal>
       </GreyoShell>
     </section>

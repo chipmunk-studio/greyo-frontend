@@ -1,4 +1,5 @@
 import {
+  GreyoCountUp,
   GreyoReveal,
   GreyoSectionIntro,
   GreyoShell,
@@ -27,7 +28,7 @@ export function ProblemSection({ view }: ProblemSectionProps) {
             <p className="greyo-label text-greyo-muted">{view.gapsLabel}</p>
             <ul className="greyo-rule-list mt-5">
               {view.gaps.map((gap) => (
-                <li key={gap.key} className="py-5">
+                <li key={gap.key} className="greyo-row -mx-4 rounded-xl px-4 py-5">
                   <p className="greyo-item-title text-greyo-body">{gap.title}</p>
                   <p className="greyo-text mt-2 text-greyo-muted">{gap.body}</p>
                 </li>
@@ -51,7 +52,7 @@ export function ProblemSection({ view }: ProblemSectionProps) {
                     stat.emphasis ? 'text-greyo-orange' : 'text-greyo-body'
                   }`}
                 >
-                  {stat.value}
+                  <GreyoCountUp value={stat.value} />
                   <span className="ml-0.5 text-[0.42em] font-bold">{stat.unit}</span>
                 </p>
                 <p className="greyo-caption mt-3 text-greyo-muted">{stat.caption}</p>

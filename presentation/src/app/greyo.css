@@ -233,6 +233,83 @@
   }
 }
 
+/* ── 인터랙션 ──────────────────────────────────────────────────
+   손이 닿는 곳에만 모션을 준다. 전부 prefers-reduced-motion 에서 꺼진다. */
+
+/** 카드 — 커서를 올리면 살짝 뜨고 테두리가 또렷해진다. */
+.greyo-lift {
+  transition:
+    transform 0.3s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.greyo-lift:hover {
+  transform: translateY(-5px);
+  border-color: var(--gray-300);
+  box-shadow: 0 14px 34px rgba(17, 18, 20, 0.09);
+}
+
+.greyo-on-dark .greyo-lift:hover,
+.greyo-lift--dark:hover {
+  border-color: rgba(255, 255, 255, 0.22);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.35);
+}
+
+/** 리스트 행 — 훑어 읽을 때 현재 줄을 짚어준다. */
+.greyo-row {
+  transition: background-color 0.2s ease;
+}
+
+.greyo-row:hover {
+  background: rgba(17, 18, 20, 0.028);
+}
+
+.greyo-on-dark .greyo-row:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/** 히어로 진입 — 로드 직후 위에서부터 순차로 올라온다. */
+@keyframes greyo-rise {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.greyo-enter > * {
+  animation: greyo-rise 0.9s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.greyo-enter > *:nth-child(1) {
+  animation-delay: 0.06s;
+}
+.greyo-enter > *:nth-child(2) {
+  animation-delay: 0.16s;
+}
+.greyo-enter > *:nth-child(3) {
+  animation-delay: 0.28s;
+}
+.greyo-enter > *:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .greyo-lift,
+  .greyo-row {
+    transition: none;
+  }
+  .greyo-lift:hover {
+    transform: none;
+  }
+  .greyo-enter > * {
+    animation: none;
+  }
+}
+
 /* ── 헤더 ──────────────────────────────────────────────────── */
 .greyo-header {
   position: sticky;

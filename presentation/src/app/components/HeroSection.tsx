@@ -10,7 +10,7 @@ export function HeroSection({ view }: HeroSectionProps) {
   return (
     <section id="top" className="greyo-on-dark relative flex min-h-svh items-center bg-greyo-ink">
       <GreyoShell>
-        <div className="max-w-[54ch] py-32">
+        <div className="greyo-enter max-w-[54ch] py-32">
           <p className="greyo-eyebrow">{view.eyebrow}</p>
 
           <h1 className="mt-7 text-[clamp(36px,6.4vw,84px)] leading-[1.14] font-extrabold tracking-[-0.035em] text-white">

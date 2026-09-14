@@ -55,7 +55,7 @@ export function BusinessSection({ view }: BusinessSectionProps) {
               {view.swaps.map((swap) => (
                 <li
                   key={swap.from}
-                  className="flex flex-col gap-1 py-5 sm:flex-row sm:items-baseline sm:gap-6"
+                  className="greyo-row -mx-4 flex flex-col gap-1 rounded-xl px-4 py-5 sm:flex-row sm:items-baseline sm:gap-6"
                 >
                   <span className="greyo-caption w-[9.5rem] shrink-0 text-white/45 line-through">
                     {swap.from}
@@ -73,7 +73,7 @@ export function BusinessSection({ view }: BusinessSectionProps) {
             <p className="greyo-label text-white/50">{view.principlesLabel}</p>
             <ul className="greyo-rule-list mt-5">
               {view.principles.map((principle) => (
-                <li key={principle.key} className="py-6">
+                <li key={principle.key} className="greyo-row -mx-4 rounded-xl px-4 py-6">
                   <p className="greyo-item-title text-white">{principle.title}</p>
                   <p className="greyo-text mt-2.5 text-white/60">
                     {renderRichText(principle.body)}
