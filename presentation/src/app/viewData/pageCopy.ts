@@ -12,9 +12,9 @@
 
 export const NAV_COPY = [
   { id: 'business', label: '사업' },
+  { id: 'amenity', label: '어메니티' },
+  { id: 'membership', label: '멤버십' },
   { id: 'services', label: '서비스' },
-  { id: 'brand', label: '브랜드' },
-  { id: 'vision', label: '비전' },
 ] as const;
 
 export const HEADER_CTA = { label: '문의하기', href: '#contact' } as const;
@@ -48,18 +48,28 @@ export const BUSINESS_COPY = {
 
 export const SERVICES_COPY = {
   eyebrow: 'Services',
-  heading: '‘그래요’ 뒤에 무엇이 와도,\n**서비스가 됩니다**',
-  lead: '주거를 중심으로 일상의 전 영역으로 확장합니다. 모두 하나의 앱, 하나의 멤버십 아래에 있습니다.',
+  heading: '주거에서 시작해\n**일상 전체를 맡습니다**',
+  lead: '멤버십으로 검증한 생활 데이터 위에 서비스를 하나씩 올립니다. 전부 같은 앱, 같은 계정 안에 있습니다.',
 } as const;
 
-export const BRAND_COPY = {
-  eyebrow: 'Brand',
-  heading: '한국인이 하루에 가장 많이 쓰는 말,\n그 위에 브랜드를 **세웁니다**',
-  lead: '‘그래요’는 대화를 여는 말이자 무언가를 시작하겠다는 긍정의 언어입니다. 설명이 필요 없는 이름은 마케팅 비용의 절반을 대신합니다.',
-  tonesLabel: '하나의 단어, 네 가지 어조',
-  familyLabel: '하나의 어족(語族)',
-  familyNote:
-    '한국어 접속사 패밀리 전체가 브랜드 자산이 됩니다. 새 서비스의 이름을 고민할 필요가 없습니다.',
+export const AMENITY_COPY = {
+  eyebrow: 'Amenity',
+  heading: '원룸에 없던 공간을,\n**도보 5분 안에 둡니다**',
+  lead: '라운지부터 사우나·퍼블릭 오피스까지 클러스터 단위로 짓습니다. 한 건물이 아니라 동네가 집이 되는 구조입니다.',
+  feeUnit: '원 / 월',
+  note: '요금은 파일럿 기준이며 클러스터별로 달라질 수 있습니다.',
+} as const;
+
+export const MEMBERSHIP_COPY = {
+  eyebrow: 'Membership',
+  heading: '등급이 아니라 **조합입니다**',
+  lead: '전 항목 임의가입·즉시해지. 정해진 플랜을 고르는 게 아니라 필요한 것만 담습니다. 아래는 조합 예시입니다.',
+  feePrefix: '월 +',
+  feeUnit: '원',
+  freeLabel: '추가 요금 없음',
+  includesLabel: '담은 항목',
+  rentalLabel: '집 안 렌탈 모듈',
+  rentalNote: '가구·가전도 월정액으로 — 이사 초기비용을 0 으로 만듭니다.',
 } as const;
 
 export const VISION_COPY = {
@@ -79,7 +89,7 @@ export const CONTACT_COPY = {
 } as const;
 
 export const FOOTER_COPY = {
-  copyright: '© 2026 GREYO. All rights reserved.',
-  /** TODO: 법인명·주소·사업자등록번호 확정 시 추가. */
-  legalNote: '법인 정보 준비 중',
+  copyright: '© 2026 GREYO Corp. All rights reserved.',
+  representativeLabel: '대표',
+  businessNumberLabel: '사업자등록번호',
 } as const;

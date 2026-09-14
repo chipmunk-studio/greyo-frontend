@@ -1,3 +1,8 @@
+/** 원화 표기 — 3자리 구분만 넣는다. 단위(원)는 화면이 붙인다. */
+export function formatWon(value: number): string {
+  return value.toLocaleString('ko-KR');
+}
+
 /** 유효하지 않은 base 는 폴백으로 흡수한다 — 메타 생성이 런타임에 죽지 않게. */
 export function normalizeSiteUrl(configured: string | undefined, fallback: string): string {
   try {

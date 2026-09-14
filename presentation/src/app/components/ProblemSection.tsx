@@ -27,16 +27,9 @@ export function ProblemSection({ view }: ProblemSectionProps) {
             <p className="greyo-block-label">{view.gapsLabel}</p>
             <ul className="greyo-rule-list mt-5">
               {view.gaps.map((gap) => (
-                <li key={gap.num} className="flex gap-5 py-5">
-                  <span className="w-6 shrink-0 pt-0.5 text-[13px] font-bold text-greyo-faint tabular-nums">
-                    {gap.num}
-                  </span>
-                  <span>
-                    <span className="block text-[17px] font-bold text-greyo-body">{gap.title}</span>
-                    <span className="mt-1.5 block text-[14px] leading-[1.7] text-greyo-muted">
-                      {gap.body}
-                    </span>
-                  </span>
+                <li key={gap.key} className="py-5">
+                  <p className="text-[17px] font-bold text-greyo-body">{gap.title}</p>
+                  <p className="mt-1.5 text-[14px] leading-[1.7] text-greyo-muted">{gap.body}</p>
                 </li>
               ))}
             </ul>

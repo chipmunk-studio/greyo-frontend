@@ -12,3 +12,17 @@ export const BRAND_DESCRIPTION =
 
 /** 커스텀 도메인 확정 전까지의 폴백. 배포 후 VITE_SITE_URL 로 덮어쓴다. */
 export const DEFAULT_SITE_URL = 'https://greyo-frontend.vercel.app';
+
+/**
+ * 법인 정보 — 사업자등록증 기준.
+ *
+ * 법인등록번호는 일부러 두지 않는다. 전자상거래법상 표시 의무 항목이 아니고
+ * 공개 페이지에 노출할 이유도 없다. 웹 푸터에는 상호·대표자·사업자등록번호·주소만 싣는다.
+ */
+export const COMPANY_INFO = {
+  legalName: '주식회사 그래요',
+  legalNameEn: 'GREYO Corp.',
+  representative: '박윤경',
+  businessNumber: '276-87-03959',
+  address: '서울특별시 성동구 송정18가길 13-8, 101호',
+} as const;

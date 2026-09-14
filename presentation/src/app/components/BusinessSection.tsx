@@ -75,11 +75,8 @@ export function BusinessSection({ view }: BusinessSectionProps) {
             <p className="greyo-block-label text-white/40">{view.principlesLabel}</p>
             <ul className="greyo-rule-list mt-5">
               {view.principles.map((principle) => (
-                <li key={principle.num} className="py-6">
-                  <p className="text-[11px] font-bold tracking-[0.12em] text-greyo-orange uppercase">
-                    {principle.label}
-                  </p>
-                  <p className="mt-2 text-[18px] font-bold text-white">{principle.title}</p>
+                <li key={principle.key} className="py-6">
+                  <p className="text-[18px] font-bold text-white">{principle.title}</p>
                   <p className="mt-2 text-[14px] leading-[1.75] text-white/55">
                     {renderRichText(principle.body)}
                   </p>

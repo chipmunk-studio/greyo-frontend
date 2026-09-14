@@ -1,17 +1,14 @@
-import { BRAND_NAME_KO, BRAND_TAGLINE } from '@greyo-frontend/core';
+import { BRAND_TAGLINE, COMPANY_INFO, formatWon } from '@greyo-frontend/core';
 import type {
   AmenitySwap,
   BrandContent,
-  BrandPillar,
-  BrandTone,
   ExpansionStep,
   HousingGap,
   LivingScope,
   MarketStat,
-  NamingBranch,
-  PositioningPillar,
   ServiceLine,
   SolutionPrinciple,
+  VisionStatement,
 } from '@greyo-frontend/entities';
 import * as copy from './pageCopy';
 
@@ -19,8 +16,8 @@ import * as copy from './pageCopy';
    기업 페이지 view data.
 
    콘텐츠(entities)와 서술 카피(pageCopy)를 합쳐 "화면이 그대로 그리면 되는 형태"로
-   만든다. 강조·순서·분배 같은 시각 결정은 전부 여기서 끝나고, 섹션 컴포넌트는
-   판단 없이 렌더만 한다.
+   만든다. 금액 포맷·강조·순서·분배 같은 표시 결정은 전부 여기서 끝나고,
+   섹션 컴포넌트는 판단 없이 렌더만 한다.
 
    이름이 ViewData 인 이유 — 상태를 들고 있는 MVVM 의 ViewModel 이 아니라,
    렌더 시점에 만들어지는 순수 데이터다.
@@ -75,27 +72,61 @@ export interface BusinessViewData {
   principles: readonly SolutionPrinciple[];
 }
 
-export interface ServicesViewData {
-  intro: SectionIntroViewData;
-  brandPrefix: string;
-  items: readonly ServiceLine[];
+/** 어메니티 한 줄 — 금액 포맷은 여기서 끝낸다. */
+export interface AmenityItemViewData {
+  key: string;
+  name: string;
+  body: string;
+  /** 월정액이면 '3,800' + 단위, 아니면 '75,000원/회' 같은 표기를 그대로 쓴다. */
+  fee: string;
+  isMonthly: boolean;
 }
 
-export interface BrandViewData {
+export interface AmenityViewData {
   intro: SectionIntroViewData;
-  pillars: readonly BrandPillar[];
-  tonesLabel: string;
-  tones: readonly BrandTone[];
-  familyLabel: string;
-  familyNote: string;
-  master: NamingBranch;
-  branches: readonly NamingBranch[];
+  items: readonly AmenityItemViewData[];
+  feeUnit: string;
+  note: string;
+}
+
+export interface MembershipPlanViewData {
+  key: string;
+  label: string;
+  title: string;
+  body: string;
+  includes: readonly string[];
+  fee: string;
+  /** 0원 조합은 금액 대신 '추가 요금 없음' 을 쓴다. */
+  isFree: boolean;
+  /** 가운데 조합만 강조 — 가장 많이 고르는 구성이라는 화면 결정. */
+  featured: boolean;
+}
+
+export interface RentalModuleViewData {
+  key: string;
+  name: string;
+  fee: string;
+}
+
+export interface MembershipViewData {
+  intro: SectionIntroViewData;
+  plans: readonly MembershipPlanViewData[];
+  feePrefix: string;
+  feeUnit: string;
+  includesLabel: string;
+  rentalLabel: string;
+  rentalNote: string;
+  rentals: readonly RentalModuleViewData[];
+}
+
+export interface ServicesViewData {
+  intro: SectionIntroViewData;
+  items: readonly ServiceLine[];
 }
 
 export interface VisionViewData {
   intro: SectionIntroViewData;
-  /** 미션·비전·BM 중 비전 한 장만 쓴다 — 기업 페이지엔 세 장이 다 필요 없다. */
-  statement: PositioningPillar;
+  statement: VisionStatement;
   expansion: readonly ExpansionStep[];
   closingQuote: string;
   closingLine: string;
@@ -109,9 +140,19 @@ export interface ContactViewData {
   emailLabel: string;
 }
 
+/** 푸터 법인 정보 — 사업자등록증 기준. 법인등록번호는 공개하지 않는다. */
+export interface CompanyViewData {
+  legalName: string;
+  representativeLabel: string;
+  representative: string;
+  businessNumberLabel: string;
+  businessNumber: string;
+  address: string;
+}
+
 export interface FooterViewData {
   tagline: string;
-  legalNote: string;
+  company: CompanyViewData;
   copyright: string;
 }
 
@@ -121,15 +162,13 @@ export interface BrandPageViewData {
   hero: HeroViewData;
   problem: ProblemViewData;
   business: BusinessViewData;
+  amenity: AmenityViewData;
+  membership: MembershipViewData;
   services: ServicesViewData;
-  brand: BrandViewData;
   vision: VisionViewData;
   contact: ContactViewData;
   footer: FooterViewData;
 }
-
-/** 홈에 노출할 수치 개수 — 4개는 스트립이 빽빽해 3개로 줄인다. */
-const STAT_LIMIT = 3;
 
 function findRequired<T>(items: readonly T[], predicate: (item: T) => boolean, label: string): T {
   const found = items.find(predicate);
@@ -148,11 +187,6 @@ export function buildBrandPageViewData(content: BrandContent): BrandPageViewData
     content.livingScopes,
     (scope) => scope.key === 'home',
     'livingScopes.home',
-  );
-  const vision = findRequired(
-    content.positioningPillars,
-    (pillar) => pillar.key === 'vision',
-    'positioningPillars.vision',
   );
 
   return {
@@ -179,9 +213,7 @@ export function buildBrandPageViewData(content: BrandContent): BrandPageViewData
       insight: copy.PROBLEM_COPY.insight,
       statsLabel: copy.PROBLEM_COPY.statsNote,
       // 첫 수치만 오렌지 — 나머지는 같은 무게로 둔다.
-      stats: content.marketStats
-        .slice(0, STAT_LIMIT)
-        .map((stat, i) => ({ ...stat, emphasis: i === 0 })),
+      stats: content.marketStats.map((stat, i) => ({ ...stat, emphasis: i === 0 })),
     },
 
     business: {
@@ -198,29 +230,58 @@ export function buildBrandPageViewData(content: BrandContent): BrandPageViewData
       principles: content.solutionPrinciples,
     },
 
+    amenity: {
+      intro: {
+        eyebrow: copy.AMENITY_COPY.eyebrow,
+        heading: copy.AMENITY_COPY.heading,
+        lead: copy.AMENITY_COPY.lead,
+      },
+      items: content.amenities.map((item) => ({
+        key: item.key,
+        name: item.name,
+        body: item.body,
+        fee: item.monthlyFee !== null ? formatWon(item.monthlyFee) : (item.feeNote ?? ''),
+        isMonthly: item.monthlyFee !== null,
+      })),
+      feeUnit: copy.AMENITY_COPY.feeUnit,
+      note: copy.AMENITY_COPY.note,
+    },
+
+    membership: {
+      intro: {
+        eyebrow: copy.MEMBERSHIP_COPY.eyebrow,
+        heading: copy.MEMBERSHIP_COPY.heading,
+        lead: copy.MEMBERSHIP_COPY.lead,
+      },
+      plans: content.membershipPlans.map((plan) => ({
+        key: plan.key,
+        label: plan.label,
+        title: plan.title,
+        body: plan.body,
+        includes: plan.includes,
+        fee: plan.monthlyFee === 0 ? copy.MEMBERSHIP_COPY.freeLabel : formatWon(plan.monthlyFee),
+        isFree: plan.monthlyFee === 0,
+        featured: plan.key === 'standard',
+      })),
+      feePrefix: copy.MEMBERSHIP_COPY.feePrefix,
+      feeUnit: copy.MEMBERSHIP_COPY.feeUnit,
+      includesLabel: copy.MEMBERSHIP_COPY.includesLabel,
+      rentalLabel: copy.MEMBERSHIP_COPY.rentalLabel,
+      rentalNote: copy.MEMBERSHIP_COPY.rentalNote,
+      rentals: content.rentalModules.map((module) => ({
+        key: module.key,
+        name: module.name,
+        fee: formatWon(module.monthlyFee),
+      })),
+    },
+
     services: {
       intro: {
         eyebrow: copy.SERVICES_COPY.eyebrow,
         heading: copy.SERVICES_COPY.heading,
         lead: copy.SERVICES_COPY.lead,
       },
-      brandPrefix: BRAND_NAME_KO,
       items: content.services,
-    },
-
-    brand: {
-      intro: {
-        eyebrow: copy.BRAND_COPY.eyebrow,
-        heading: copy.BRAND_COPY.heading,
-        lead: copy.BRAND_COPY.lead,
-      },
-      pillars: content.pillars,
-      tonesLabel: copy.BRAND_COPY.tonesLabel,
-      tones: content.tones,
-      familyLabel: copy.BRAND_COPY.familyLabel,
-      familyNote: copy.BRAND_COPY.familyNote,
-      master: content.namingMaster,
-      branches: content.namingBranches,
     },
 
     vision: {
@@ -228,7 +289,7 @@ export function buildBrandPageViewData(content: BrandContent): BrandPageViewData
         eyebrow: copy.VISION_COPY.eyebrow,
         heading: copy.VISION_COPY.heading,
       },
-      statement: vision,
+      statement: content.vision,
       expansion: content.expansion,
       closingQuote: copy.VISION_COPY.closingQuote,
       closingLine: copy.VISION_COPY.closingLine,
@@ -238,7 +299,14 @@ export function buildBrandPageViewData(content: BrandContent): BrandPageViewData
 
     footer: {
       tagline: BRAND_TAGLINE,
-      legalNote: copy.FOOTER_COPY.legalNote,
+      company: {
+        legalName: COMPANY_INFO.legalName,
+        representativeLabel: copy.FOOTER_COPY.representativeLabel,
+        representative: COMPANY_INFO.representative,
+        businessNumberLabel: copy.FOOTER_COPY.businessNumberLabel,
+        businessNumber: COMPANY_INFO.businessNumber,
+        address: COMPANY_INFO.address,
+      },
       copyright: copy.FOOTER_COPY.copyright,
     },
   };
