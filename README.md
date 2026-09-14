@@ -22,9 +22,12 @@ npm run dev        # http://localhost:3300
 | `npm run typecheck` | 라이브러리 레이어 + presentation 타입 검사  |
 | `npm run format`    | Prettier                                    |
 
-JetBrains IDE 를 쓰면 `.idea/runConfigurations/` 의 dev · build · preview · lint · typecheck 설정이 그대로 잡힌다. Shell Script 타입이라 Android Studio 를 포함한 모든 JetBrains IDE 에서 동작한다 — npm 타입(`js.build_tools.npm`)은 JavaScript 플러그인이 있는 WebStorm·IntelliJ Ultimate 에서만 인식되므로 쓰지 않는다. 설정이 목록에 안 보이면 **File → Reload All from Disk**(⌥⌘Y).
+JetBrains IDE 를 쓰면 `.idea/runConfigurations/` 의 dev · build · preview · lint · typecheck 설정이 그대로 잡힌다. 두 가지가 지켜져야 Android Studio 에서도 동작한다 — skel-frontend 의 `web dev` 설정과 같은 방식이다.
 
-> 편집기 선택 — Android Studio 에는 TypeScript·JSX 언어 지원이 없어 타입 검사·자동완성·ESLint 연동이 동작하지 않는다. 이 레포는 **VS Code 나 WebStorm** 에서 여는 편이 낫다.
+- **타입은 `ShConfigurationType`(Shell Script)** — 전 JetBrains IDE 기본 내장. npm 타입(`js.build_tools.npm`)은 JavaScript 플러그인이 있는 WebStorm·IntelliJ Ultimate 에서만 인식되고, Android Studio 는 **에러 없이 조용히 무시**한다.
+- **npm 은 절대경로로 호출**(`/opt/homebrew/bin/npm`) — IDE 가 띄우는 셸에 homebrew PATH 가 없을 수 있다.
+
+설정이 목록에 안 보이면 **File → Reload All from Disk**(⌥⌘Y). `workspace.xml` 의 `autoReloadType` 이 `NONE` 이라 외부에서 추가한 `.idea` 파일은 자동으로 읽지 않는다.
 
 ## 아키텍처
 
