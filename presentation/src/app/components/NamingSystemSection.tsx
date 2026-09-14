@@ -1,8 +1,9 @@
 import { GreyoReveal, GreyoSectionIntro, GreyoShell } from '@greyo-frontend/design-system';
-import type { NamingBranch, NamingSystemContent } from '@greyo-frontend/entities';
+import type { NamingBranch } from '@greyo-frontend/entities';
+import type { NamingSystemViewData } from '../viewData/brandPageViewData';
 
 interface NamingSystemSectionProps {
-  content: NamingSystemContent;
+  view: NamingSystemViewData;
 }
 
 interface BranchCardProps {
@@ -81,20 +82,20 @@ function BranchCard({ branch, master = false }: BranchCardProps) {
 }
 
 /** 06 Naming System — 어족(語族) 마스터 + 서브 브랜드 4종. */
-export function NamingSystemSection({ content }: NamingSystemSectionProps) {
+export function NamingSystemSection({ view }: NamingSystemSectionProps) {
   return (
     <section className="greyo-section bg-greyo-surface">
       <GreyoShell>
         <GreyoReveal>
-          <GreyoSectionIntro intro={content.intro} />
+          <GreyoSectionIntro {...view.intro} />
         </GreyoReveal>
 
         <div className="mt-14 grid gap-4 lg:grid-cols-[1.25fr_repeat(4,1fr)]">
           <GreyoReveal className="h-full">
-            <BranchCard branch={content.master} master />
+            <BranchCard branch={view.master} master />
           </GreyoReveal>
-          {content.branches.map((branch, i) => (
-            <GreyoReveal key={branch.name} delay={(i + 1) * 80} className="h-full">
+          {view.branches.map((branch, i) => (
+            <GreyoReveal key={branch.key} delay={(i + 1) * 80} className="h-full">
               <BranchCard branch={branch} />
             </GreyoReveal>
           ))}

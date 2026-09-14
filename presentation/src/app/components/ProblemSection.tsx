@@ -3,24 +3,25 @@ import {
   GreyoReveal,
   GreyoSectionIntro,
   GreyoShell,
+  renderRichText,
 } from '@greyo-frontend/design-system';
-import type { ProblemContent } from '@greyo-frontend/entities';
+import type { ProblemViewData } from '../viewData/brandPageViewData';
 
 interface ProblemSectionProps {
-  content: ProblemContent;
+  view: ProblemViewData;
 }
 
 /** 04 The Problem — 원룸 결핍 6종 + 공개 시장 통계 + 인사이트. */
-export function ProblemSection({ content }: ProblemSectionProps) {
+export function ProblemSection({ view }: ProblemSectionProps) {
   return (
     <section id="problem" className="greyo-section bg-greyo-surface">
       <GreyoShell>
         <GreyoReveal>
-          <GreyoSectionIntro intro={content.intro} />
+          <GreyoSectionIntro {...view.intro} />
         </GreyoReveal>
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-          {content.gaps.map((gap, i) => (
+          {view.gaps.map((gap, i) => (
             <GreyoReveal key={gap.num} delay={i * 60}>
               {/* BRD p3 시안 — 번호가 제목 위에 크고 옅게 온다. */}
               <GreyoCard className="h-full">
@@ -40,17 +41,14 @@ export function ProblemSection({ content }: ProblemSectionProps) {
         <GreyoReveal>
           <div className="mt-5 rounded-panel border-l-[3px] border-greyo-orange bg-greyo-orange-soft px-7 py-6">
             <p className="text-[clamp(14px,1.25vw,17px)] leading-[1.75] text-greyo-body">
-              {content.insightBefore}
-              <strong className="font-bold text-greyo-orange-strong">
-                {content.insightAccent}
-              </strong>
+              {renderRichText(view.insight)}
             </p>
           </div>
         </GreyoReveal>
 
         <div className="mt-5 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {content.stats.map((stat, i) => (
-            <GreyoReveal key={stat.caption} delay={i * 70}>
+          {view.stats.map((stat, i) => (
+            <GreyoReveal key={stat.key} delay={i * 70}>
               <GreyoCard className="h-full">
                 <p
                   className={`text-[clamp(28px,3.2vw,40px)] leading-none font-extrabold tracking-[-0.03em] ${

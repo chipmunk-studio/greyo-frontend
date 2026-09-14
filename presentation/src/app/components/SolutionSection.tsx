@@ -4,10 +4,11 @@ import {
   GreyoSectionIntro,
   GreyoShell,
 } from '@greyo-frontend/design-system';
-import type { AmenitySwap, SolutionContent } from '@greyo-frontend/entities';
+import type { AmenitySwap, LivingScope } from '@greyo-frontend/entities';
+import type { SolutionViewData } from '../viewData/brandPageViewData';
 
 interface SolutionSectionProps {
-  content: SolutionContent;
+  view: SolutionViewData;
 }
 
 /** 결핍 → 어메니티 치환 카드. 좌우 컬럼이 같은 모양을 공유한다. */
@@ -21,20 +22,41 @@ function SwapCard({ swap }: { swap: AmenitySwap }) {
   );
 }
 
-/** 05 The Solution — 내 방/내 집 중앙 패널 + 어메니티 치환 6종 + 설계 3원칙. */
-export function SolutionSection({ content }: SolutionSectionProps) {
-  const [left, right] = [content.swaps.slice(0, 3), content.swaps.slice(3)];
+/** 중앙 다크 패널의 한 축(내 방 / 내 집). */
+function ScopeBlock({ scope, accent }: { scope: LivingScope; accent?: boolean }) {
+  return (
+    <>
+      <p
+        className={`text-[11px] font-bold tracking-[0.14em] uppercase ${
+          accent ? 'text-greyo-orange' : 'text-white/45'
+        }`}
+      >
+        {scope.label}
+      </p>
+      <p
+        className={`mt-3 font-extrabold tracking-[-0.02em] text-white ${
+          accent ? 'text-[clamp(20px,2.3vw,29px)]' : 'text-[clamp(26px,3vw,38px)]'
+        }`}
+      >
+        {scope.title}
+      </p>
+      <p className="mt-2 text-[13px] text-white/55">{scope.body}</p>
+    </>
+  );
+}
 
+/** 05 The Solution — 내 방/내 집 중앙 패널 + 어메니티 치환 6종 + 설계 3원칙. */
+export function SolutionSection({ view }: SolutionSectionProps) {
   return (
     <section className="greyo-section">
       <GreyoShell>
         <GreyoReveal>
-          <GreyoSectionIntro intro={content.intro} />
+          <GreyoSectionIntro {...view.intro} />
         </GreyoReveal>
 
         <div className="mt-14 grid items-stretch gap-4 lg:grid-cols-[1fr_1.15fr_1fr]">
           <div className="grid gap-4">
-            {left.map((swap, i) => (
+            {view.leftSwaps.map((swap, i) => (
               <GreyoReveal key={swap.from} delay={i * 80}>
                 <SwapCard swap={swap} />
               </GreyoReveal>
@@ -43,28 +65,14 @@ export function SolutionSection({ content }: SolutionSectionProps) {
 
           <GreyoReveal delay={60} className="h-full">
             <div className="flex h-full flex-col justify-center rounded-panel bg-greyo-ink px-8 py-12 text-center">
-              <p className="text-[11px] font-bold tracking-[0.14em] text-white/45 uppercase">
-                {content.roomLabel}
-              </p>
-              <p className="mt-3 text-[clamp(26px,3vw,38px)] font-extrabold tracking-[-0.02em] text-white">
-                {content.roomTitle}
-              </p>
-              <p className="mt-2 text-[13px] text-white/55">{content.roomBody}</p>
-
+              <ScopeBlock scope={view.room} />
               <div className="my-8 h-px bg-greyo-ink-line" />
-
-              <p className="text-[11px] font-bold tracking-[0.14em] text-greyo-orange uppercase">
-                {content.homeLabel}
-              </p>
-              <p className="mt-3 text-[clamp(20px,2.3vw,29px)] font-extrabold tracking-[-0.02em] text-white">
-                {content.homeTitle}
-              </p>
-              <p className="mt-2 text-[13px] text-white/55">{content.homeBody}</p>
+              <ScopeBlock scope={view.home} accent />
             </div>
           </GreyoReveal>
 
           <div className="grid gap-4">
-            {right.map((swap, i) => (
+            {view.rightSwaps.map((swap, i) => (
               <GreyoReveal key={swap.from} delay={i * 80}>
                 <SwapCard swap={swap} />
               </GreyoReveal>
@@ -73,7 +81,7 @@ export function SolutionSection({ content }: SolutionSectionProps) {
         </div>
 
         <div className="mt-5 grid gap-5 md:grid-cols-3">
-          {content.principles.map((principle, i) => (
+          {view.principles.map((principle, i) => (
             <GreyoReveal key={principle.num} delay={i * 90}>
               <GreyoCard variant="filled" className="h-full">
                 <p className="text-[11px] font-bold tracking-[0.12em] text-greyo-orange uppercase">

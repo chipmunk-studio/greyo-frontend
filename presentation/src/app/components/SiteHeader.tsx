@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { GreyoWordmark } from '@greyo-frontend/design-system';
-import type { NavItem } from '@greyo-frontend/entities';
+import type { NavItemViewData } from '../viewData/brandPageViewData';
 
 /** 히어로를 벗어났다고 판단하는 스크롤 임계값(px). */
 const SOLID_THRESHOLD = 64;
 
 interface SiteHeaderProps {
-  nav: readonly NavItem[];
+  nav: readonly NavItemViewData[];
 }
 
 /**

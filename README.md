@@ -29,7 +29,7 @@ JetBrains IDE 를 쓰면 `.idea/runConfigurations/` 의 dev · build · preview 
 npm workspaces + Turborepo. 의존 방향은 아래로만 흐른다.
 
 ```
-entities ── 도메인 타입 (BrandContent). 의존성 없음
+entities ── 브랜드 콘텐츠 모델 (BrandContent). 의존성 없음
 core ────── 순수 유틸·브랜드 상수. 의존성 없음
     ↓
 application ── 유스케이스·리포지토리 인터페이스
@@ -38,16 +38,33 @@ infrastructure ── 데이터소스 구현 + .env 소유
     ↓
 di ──────── 합성 루트. 구현체를 유스케이스에 배선하는 유일한 지점
     ↓
-presentation ── React Router 앱 (design-system · assets 소비)
+presentation ── view data + React Router 앱 (design-system · assets 소비)
 ```
 
 - 외부 의존성은 **루트 `package.json` 에서만** 정확한 버전으로 선언한다(`^`·`~` 금지). 하위 workspace 는 `@greyo-frontend/*` 내부 패키지만 명시한다.
 - `presentation` 은 `@greyo-frontend/infrastructure` 를 직접 import 할 수 없다 — ESLint 가 막는다. `di` 를 경유한다.
 - `entities` · `core` 는 최하위 레이어라 다른 레이어를 참조할 수 없다 — 역시 ESLint 가 막는다.
+- `design-system` 은 도메인 타입을 모른다. 평범한 props 만 받으므로 `entities` 에 의존하지 않는다.
 
-### 콘텐츠는 왜 infrastructure 에 있나
+### 콘텐츠 / view data 분리
 
-브랜드 카피는 `infrastructure/src/brand/staticBrandContent.ts` 가 공급한다. 서버가 없는 현 단계의 데이터소스일 뿐이고, CMS·API 가 생기면 `BrandContentRepository` 를 만족하는 구현을 추가하고 `di/src/container.ts` 의 조립부만 바꾸면 된다. `presentation` 컴포넌트는 `BrandContent` 를 props 로 받을 뿐이라 바뀌지 않는다.
+**`entities` 에는 "브랜드가 무엇으로 이루어져 있는가" 만 둔다** — 3원칙, 어족, 서비스 8종, 결핍 6종, 시장 통계 같은 항목과 그 문구. 값은 `infrastructure/src/brand/staticBrandContent.ts` 가 공급한다. CMS·API 가 생기면 `BrandContentRepository` 구현만 추가하고 `di/src/container.ts` 조립부를 바꾼다.
+
+**"화면이 그걸 어떻게 서술하는가" 는 `presentation/src/app/viewData/` 가 소유한다.**
+
+|           | 위치                            | 예                                                                        |
+| --------- | ------------------------------- | ------------------------------------------------------------------------- |
+| 콘텐츠    | `entities` + `infrastructure`   | 서비스 8종, 결핍 6종, 어족 구성원                                         |
+| 서술 카피 | `viewData/pageCopy.ts`          | eyebrow, 섹션 헤드라인, 리드, 각종 라벨                                   |
+| 시각 결정 | `viewData/brandPageViewData.ts` | 다크 카드로 세울 비교군, 피치 배경 카드, 오렌지 강조 통계, 좌우 컬럼 분배 |
+
+`highlight`·`isBrand`·`emphasis` 같은 플래그는 콘텐츠가 아니라 화면 결정이므로 `buildBrandPageViewData()` 가 만들어 넣는다. 섹션 컴포넌트는 판단 없이 렌더만 한다.
+
+> 이름이 **ViewData** 인 이유 — 상태를 들고 있는 MVVM 의 ViewModel 이 아니라 렌더 시점에 만들어지는 순수 데이터다.
+
+### 강조 표기
+
+콘텐츠 문자열의 `**…**` 는 "이 구간이 강조" 라는 의미 표기일 뿐이고, 그걸 브랜드 오렌지로 그리는 결정은 `greyo.css` 의 `.greyo-site em` 이 한다. 파싱은 `design-system` 의 `renderRichText()` 가 맡는다(`\n` → `<br />` 도 함께).
 
 ## 프리렌더 계약 (중요)
 

@@ -3,25 +3,26 @@ import {
   GreyoReveal,
   GreyoSectionIntro,
   GreyoShell,
+  renderRichText,
 } from '@greyo-frontend/design-system';
-import type { VerbalContent } from '@greyo-frontend/entities';
+import type { VerbalViewData } from '../viewData/brandPageViewData';
 
 interface VerbalIdentitySectionProps {
-  content: VerbalContent;
+  view: VerbalViewData;
 }
 
 /** 08 Verbal Identity — 말투 3원칙 + 다크 카피 샘플 패널. */
-export function VerbalIdentitySection({ content }: VerbalIdentitySectionProps) {
+export function VerbalIdentitySection({ view }: VerbalIdentitySectionProps) {
   return (
     <section className="greyo-section bg-greyo-surface">
       <GreyoShell>
         <GreyoReveal>
-          <GreyoSectionIntro intro={content.intro} />
+          <GreyoSectionIntro {...view.intro} />
         </GreyoReveal>
 
         <div className="mt-14 grid gap-5 lg:grid-cols-2">
           <div className="flex flex-col gap-4">
-            {content.principles.map((principle, i) => (
+            {view.principles.map((principle, i) => (
               <GreyoReveal key={principle.label} delay={i * 80}>
                 <GreyoCard>
                   <p className="text-[11px] font-bold tracking-[0.12em] text-greyo-orange uppercase">
@@ -32,8 +33,7 @@ export function VerbalIdentitySection({ content }: VerbalIdentitySectionProps) {
                     {principle.body}
                   </p>
                   <p className="mt-4 w-fit rounded-xl bg-greyo-surface px-4 py-2.5 text-[14px] font-semibold text-greyo-body">
-                    <span className="text-greyo-orange">{principle.sample.accent}</span>
-                    {principle.sample.rest}
+                    {renderRichText(principle.sample)}
                   </p>
                 </GreyoCard>
               </GreyoReveal>
@@ -43,24 +43,22 @@ export function VerbalIdentitySection({ content }: VerbalIdentitySectionProps) {
           <GreyoReveal delay={120} className="h-full">
             <div className="flex h-full flex-col justify-center rounded-panel bg-greyo-ink px-8 py-12 sm:px-10">
               <p className="text-[11px] font-bold tracking-[0.14em] text-white/40 uppercase">
-                {content.samplesLabel}
+                {view.samplesLabel}
               </p>
 
               <div className="mt-8 flex flex-col gap-7">
-                {content.samples.map((sample) => (
+                {view.samples.map((sample) => (
                   <p
-                    key={sample.accent + sample.rest}
+                    key={sample}
                     className="text-[clamp(18px,2.1vw,28px)] font-bold tracking-[-0.02em] text-white"
                   >
-                    <span className="text-white/70">{sample.prefix}</span>
-                    <span className="text-greyo-orange">{sample.accent}</span>
-                    {sample.rest}
+                    {renderRichText(sample)}
                   </p>
                 ))}
               </div>
 
               <p className="mt-10 text-[13px] leading-[1.7] text-white/45">
-                {content.samplesFootnote}
+                {view.samplesFootnote}
               </p>
             </div>
           </GreyoReveal>

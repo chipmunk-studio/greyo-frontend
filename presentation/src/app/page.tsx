@@ -11,6 +11,7 @@ import { SiteFooter } from './components/SiteFooter';
 import { SiteHeader } from './components/SiteHeader';
 import { SolutionSection } from './components/SolutionSection';
 import { VerbalIdentitySection } from './components/VerbalIdentitySection';
+import { buildBrandPageViewData } from './viewData/brandPageViewData';
 import './greyo.css';
 
 /**
@@ -20,24 +21,24 @@ import './greyo.css';
  * 값이 없어 HTML 이 빈 셸로 떨어진다(SEO·OG 깨짐) — 그래서 렌더 중 직접 읽는다.
  */
 export default function BrandPage() {
-  const content = container.getBrandContent.execute();
+  const view = buildBrandPageViewData(container.getBrandContent.execute());
 
   return (
     <div className="greyo-site">
-      <SiteHeader nav={content.nav} />
+      <SiteHeader nav={view.nav} />
       <main>
-        <HeroSection hero={content.hero} />
-        <BrandEssenceSection content={content.essence} />
-        <NamingStorySection content={content.namingStory} />
-        <PositioningSection content={content.positioning} />
-        <ProblemSection content={content.problem} />
-        <SolutionSection content={content.solution} />
-        <NamingSystemSection content={content.namingSystem} />
-        <ServiceArchitectureSection content={content.service} />
-        <VerbalIdentitySection content={content.verbal} />
-        <ClosingSection content={content.closing} />
+        <HeroSection view={view.hero} />
+        <BrandEssenceSection view={view.essence} />
+        <NamingStorySection view={view.namingStory} />
+        <PositioningSection view={view.positioning} />
+        <ProblemSection view={view.problem} />
+        <SolutionSection view={view.solution} />
+        <NamingSystemSection view={view.namingSystem} />
+        <ServiceArchitectureSection view={view.service} />
+        <VerbalIdentitySection view={view.verbal} />
+        <ClosingSection view={view.closing} />
       </main>
-      <SiteFooter content={content.footer} />
+      <SiteFooter view={view.footer} />
     </div>
   );
 }

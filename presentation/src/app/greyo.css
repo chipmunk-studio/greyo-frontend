@@ -106,7 +106,8 @@
   text-wrap: balance;
 }
 
-.greyo-heading em {
+/* 콘텐츠는 `**…**` 로 '강조'만 표기하고, 그 강조를 브랜드 오렌지로 그리는 결정은 여기서 한다. */
+.greyo-site em {
   font-style: normal;
   color: var(--accent);
 }

@@ -1,60 +1,25 @@
 /* ==========================================================================
-   GREYO 브랜드 소개 콘텐츠 도메인 모델.
-   출처 문서(브랜딩소개서 v1 · BRD v2.3)의 구조를 타입으로 고정한다.
-   값은 infrastructure 가 공급한다 — 지금은 정적, 이후 CMS/API 로 교체 가능.
+   GREYO 브랜드 콘텐츠 모델.
+
+   여기 있는 건 "브랜드가 무엇으로 이루어져 있는가" 뿐이다 — 항목과 그 문구.
+   화면이 그걸 어떻게 서술하는지(eyebrow·헤드라인·강조색·카드 톤·배치)는
+   presentation 의 뷰모델이 소유한다. 이 레이어에 스타일 플래그를 두지 않는다.
+
+   문구 안의 `**…**` 는 "이 구간이 강조다"라는 의미 표기일 뿐, 무슨 색인지는
+   presentation 이 정한다.
    ========================================================================== */
 
-/** 앵커 내비게이션 항목. `id` 는 렌더된 <section> 의 id 와 1:1. */
-export interface NavItem {
-  id: string;
-  label: string;
-}
+/* ── Brand Essence ──────────────────────────────────────────────────────── */
 
-/** 섹션 공통 머리말 — eyebrow + 헤드라인(강조 어구 분리) + 리드 문단. */
-export interface SectionIntro {
-  /** 섹션 번호(01~08). 히어로·클로징은 없음. */
-  index?: string;
-  eyebrow: string;
-  headingBefore: string;
-  /** 브랜드 오렌지로 강조되는 핵심 어구. */
-  headingAccent?: string;
-  headingAfter?: string;
-  lead?: string;
-}
-
-/** 오렌지 강조 어구 + 나머지로 나뉜 한 줄 카피. */
-export interface AccentedLine {
-  accent: string;
-  rest: string;
-}
-
-/* ── 01. Hero ───────────────────────────────────────────────────────────── */
-
-export interface HeroContent {
-  eyebrow: string;
-  /** 자간을 벌려 병기하는 한글 — `그 래 요`. */
-  spaced: string;
-  tagline: AccentedLine;
-  description: string;
-  scrollCue: string;
-}
-
-/* ── 02. Brand Essence ──────────────────────────────────────────────────── */
-
+/** 브랜드 본질 3원칙 — 일상성·긍정성·확장성. */
 export interface BrandPillar {
+  key: 'everyday' | 'positive' | 'expandable';
   label: string;
   title: string;
   body: string;
 }
 
-/** `직방·다방처럼 …` 다크 배너. */
-export interface EssenceBanner {
-  before: string;
-  accent: string;
-  tag: string;
-}
-
-/** 그래요. / ? / ! / … 네 가지 어조. */
+/** `그래요` 뒤에 붙는 문장부호별 어조. */
 export interface BrandTone {
   mark: string;
   punctuation: string;
@@ -62,121 +27,24 @@ export interface BrandTone {
   body: string;
 }
 
-export interface EssenceContent {
-  intro: SectionIntro;
-  pillars: readonly BrandPillar[];
-  banner: EssenceBanner;
-  tones: readonly BrandTone[];
-}
+/* ── Naming ─────────────────────────────────────────────────────────────── */
 
-/* ── 03. Naming Story ───────────────────────────────────────────────────── */
-
+/** 일상어에서 태어난 브랜드 비교군 — 네이버·카카오·당근, 그리고 그래요. */
 export interface NamingPeer {
   name: string;
   scope: string;
-  /** true 면 GREYO 자신 — 다크 카드로 강조한다. */
-  isBrand?: boolean;
 }
 
+/** 네이밍 채택 기준 4종. */
 export interface NamingCriterion {
   label: string;
   title: string;
   body: string;
 }
 
-export interface NamingStoryContent {
-  intro: SectionIntro;
-  question: string;
-  answer: string;
-  peers: readonly NamingPeer[];
-  criteria: readonly NamingCriterion[];
-}
-
-/* ── 04. Brand Positioning ──────────────────────────────────────────────── */
-
-export interface PositioningPillar {
-  label: string;
-  title: string;
-  /** 제목 뒤에 오렌지로 붙는 어구(VISION 카드에만 있음). */
-  titleAccent?: string;
-  body: string;
-  /** true 면 피치 배경 카드. */
-  highlight?: boolean;
-}
-
-export interface ExpansionStep {
-  title: string;
-  body: string;
-}
-
-export interface PositioningContent {
-  intro: SectionIntro;
-  definitionLabel: string;
-  definitionBefore: string;
-  definitionAccent: string;
-  definitionAfter: string;
-  pillars: readonly PositioningPillar[];
-  expansion: readonly ExpansionStep[];
-}
-
-/* ── 05. Problem ────────────────────────────────────────────────────────── */
-
-/** 원룸 결핍 6종. */
-export interface HousingGap {
-  num: string;
-  title: string;
-  body: string;
-}
-
-/** 공개 시장 통계 — 내부 재무 추정치는 도메인에 두지 않는다. */
-export interface MarketStat {
-  value: string;
-  unit: string;
-  caption: string;
-  /** true 면 오렌지 강조 수치. */
-  emphasis?: boolean;
-}
-
-export interface ProblemContent {
-  intro: SectionIntro;
-  gaps: readonly HousingGap[];
-  stats: readonly MarketStat[];
-  insightBefore: string;
-  insightAccent: string;
-}
-
-/* ── 06. Solution ───────────────────────────────────────────────────────── */
-
-/** 결핍 → 어메니티 치환 매핑. */
-export interface AmenitySwap {
-  from: string;
-  title: string;
-  body: string;
-}
-
-export interface SolutionPrinciple {
-  num: string;
-  label: string;
-  title: string;
-  body: string;
-}
-
-export interface SolutionContent {
-  intro: SectionIntro;
-  roomLabel: string;
-  roomTitle: string;
-  roomBody: string;
-  homeLabel: string;
-  homeTitle: string;
-  homeBody: string;
-  swaps: readonly AmenitySwap[];
-  principles: readonly SolutionPrinciple[];
-}
-
-/* ── 07. Naming System ──────────────────────────────────────────────────── */
-
 /** 어족(語族) 구성원 — 마스터(그래요)와 서브 브랜드가 같은 형태를 공유한다. */
 export interface NamingBranch {
+  key: string;
   label: string;
   name: string;
   /** 로마자·영문 병기 — GREYO, -ER, AND, IF, OK OK. */
@@ -187,14 +55,67 @@ export interface NamingBranch {
   tag: string;
 }
 
-export interface NamingSystemContent {
-  intro: SectionIntro;
-  master: NamingBranch;
-  branches: readonly NamingBranch[];
+/* ── Positioning ────────────────────────────────────────────────────────── */
+
+/** 미션·비전·비즈니스 모델. `title` 에 `**…**` 강조가 올 수 있다. */
+export interface PositioningPillar {
+  key: 'mission' | 'vision' | 'businessModel';
+  label: string;
+  title: string;
+  body: string;
 }
 
-/* ── 08. Service Architecture ───────────────────────────────────────────── */
+/** 공간 → 타운 → 동네 → 도시 확장 단계. */
+export interface ExpansionStep {
+  title: string;
+  body: string;
+}
 
+/* ── Problem ────────────────────────────────────────────────────────────── */
+
+/** 원룸 결핍 6종. */
+export interface HousingGap {
+  num: string;
+  title: string;
+  body: string;
+}
+
+/** 공개 시장 통계. 내부 재무 추정치는 이 레이어에 두지 않는다. */
+export interface MarketStat {
+  key: string;
+  value: string;
+  unit: string;
+  caption: string;
+}
+
+/* ── Solution ───────────────────────────────────────────────────────────── */
+
+/** 결핍 → 어메니티 치환 매핑. */
+export interface AmenitySwap {
+  from: string;
+  title: string;
+  body: string;
+}
+
+/** 해법 설계 3원칙 — à la carte · 도보권 클러스터 · 참여형 운영. */
+export interface SolutionPrinciple {
+  num: string;
+  label: string;
+  title: string;
+  body: string;
+}
+
+/** 주거 계약(내 방)과 멤버십(내 집)의 두 축. */
+export interface LivingScope {
+  key: 'room' | 'home';
+  label: string;
+  title: string;
+  body: string;
+}
+
+/* ── Service ────────────────────────────────────────────────────────────── */
+
+/** `그래요 ○○` 서비스 라인 8종. */
 export interface ServiceLine {
   num: string;
   name: string;
@@ -203,60 +124,37 @@ export interface ServiceLine {
   tag: string;
 }
 
-export interface ServiceContent {
-  intro: SectionIntro;
-  items: readonly ServiceLine[];
-}
+/* ── Verbal Identity ────────────────────────────────────────────────────── */
 
-/* ── 09. Verbal Identity ────────────────────────────────────────────────── */
-
+/** 말투 3원칙. `sample` 에 `**…**` 강조가 온다. */
 export interface VerbalPrinciple {
   label: string;
   title: string;
   body: string;
-  sample: AccentedLine;
-}
-
-export interface VerbalContent {
-  intro: SectionIntro;
-  principles: readonly VerbalPrinciple[];
-  samplesLabel: string;
-  /** `prefix` 는 “집 문제요? ” 처럼 강조 앞에 붙는 도입부. */
-  samples: readonly (AccentedLine & { prefix?: string })[];
-  samplesFootnote: string;
-}
-
-/* ── 10. Closing ────────────────────────────────────────────────────────── */
-
-export interface ClosingContent {
-  eyebrow: string;
-  headingLine1: string;
-  headingLine2: string;
-  quote: string;
-  subBefore: string;
-  subStrong: string;
-  subAccent: string;
-}
-
-export interface FooterContent {
-  tagline: string;
-  copyright: string;
+  sample: string;
 }
 
 /* ── Aggregate ──────────────────────────────────────────────────────────── */
 
-/** 브랜드 소개 페이지 한 장을 그리는 데 필요한 콘텐츠 전량. */
+/** 브랜드를 이루는 콘텐츠 전량. 화면 구성과 무관하게 이것만으로 성립한다. */
 export interface BrandContent {
-  nav: readonly NavItem[];
-  hero: HeroContent;
-  essence: EssenceContent;
-  namingStory: NamingStoryContent;
-  positioning: PositioningContent;
-  problem: ProblemContent;
-  solution: SolutionContent;
-  namingSystem: NamingSystemContent;
-  service: ServiceContent;
-  verbal: VerbalContent;
-  closing: ClosingContent;
-  footer: FooterContent;
+  pillars: readonly BrandPillar[];
+  tones: readonly BrandTone[];
+  namingQuestion: string;
+  namingAnswer: string;
+  namingPeers: readonly NamingPeer[];
+  namingCriteria: readonly NamingCriterion[];
+  namingMaster: NamingBranch;
+  namingBranches: readonly NamingBranch[];
+  definition: string;
+  positioningPillars: readonly PositioningPillar[];
+  expansion: readonly ExpansionStep[];
+  housingGaps: readonly HousingGap[];
+  marketStats: readonly MarketStat[];
+  livingScopes: readonly LivingScope[];
+  amenitySwaps: readonly AmenitySwap[];
+  solutionPrinciples: readonly SolutionPrinciple[];
+  services: readonly ServiceLine[];
+  verbalPrinciples: readonly VerbalPrinciple[];
+  copySamples: readonly string[];
 }

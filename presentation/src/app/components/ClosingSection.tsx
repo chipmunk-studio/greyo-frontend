@@ -1,30 +1,31 @@
-import { GreyoEyebrow, GreyoReveal, GreyoShell } from '@greyo-frontend/design-system';
-import type { ClosingContent } from '@greyo-frontend/entities';
+import {
+  GreyoEyebrow,
+  GreyoReveal,
+  GreyoShell,
+  renderRichText,
+} from '@greyo-frontend/design-system';
+import type { ClosingViewData } from '../viewData/brandPageViewData';
 
 interface ClosingSectionProps {
-  content: ClosingContent;
+  view: ClosingViewData;
 }
 
 /** 09 Closing — 브랜딩소개서 마지막 장. 다크 배경 + 대형 인용. */
-export function ClosingSection({ content }: ClosingSectionProps) {
+export function ClosingSection({ view }: ClosingSectionProps) {
   return (
     <section className="greyo-on-dark greyo-section bg-greyo-ink">
       <GreyoShell>
         <GreyoReveal>
-          <GreyoEyebrow label={content.eyebrow} />
+          <GreyoEyebrow label={view.eyebrow} />
 
           <p className="mt-10 text-[clamp(30px,5.2vw,72px)] leading-[1.22] font-extrabold tracking-[-0.03em] text-white">
-            {content.headingLine1}
+            {renderRichText(view.heading)}
             <br />
-            {content.headingLine2}
-            <br />
-            <span className="text-greyo-orange">{content.quote}</span>
+            <span className="text-greyo-orange">{view.quote}</span>
           </p>
 
           <p className="mt-10 text-[clamp(14px,1.4vw,19px)] text-white/55">
-            {content.subBefore}
-            <strong className="font-bold text-white">{content.subStrong}</strong>
-            <span className="font-bold text-greyo-orange">{content.subAccent}</span>
+            {renderRichText(view.sub)}
           </p>
         </GreyoReveal>
       </GreyoShell>

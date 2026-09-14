@@ -4,23 +4,23 @@ import {
   GreyoSectionIntro,
   GreyoShell,
 } from '@greyo-frontend/design-system';
-import type { ServiceContent } from '@greyo-frontend/entities';
+import type { ServiceViewData } from '../viewData/brandPageViewData';
 
 interface ServiceArchitectureSectionProps {
-  content: ServiceContent;
+  view: ServiceViewData;
 }
 
 /** 07 Service Architecture — 서비스 8종 맵. */
-export function ServiceArchitectureSection({ content }: ServiceArchitectureSectionProps) {
+export function ServiceArchitectureSection({ view }: ServiceArchitectureSectionProps) {
   return (
     <section id="service" className="greyo-section">
       <GreyoShell>
         <GreyoReveal>
-          <GreyoSectionIntro intro={content.intro} />
+          <GreyoSectionIntro {...view.intro} />
         </GreyoReveal>
 
         <div className="mt-14 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {content.items.map((item, i) => (
+          {view.items.map((item, i) => (
             <GreyoReveal key={item.num} delay={i * 60} className="h-full">
               <GreyoCard variant="filled" className="relative h-full overflow-hidden">
                 <span className="greyo-ghost-num" aria-hidden>
@@ -29,7 +29,9 @@ export function ServiceArchitectureSection({ content }: ServiceArchitectureSecti
 
                 <div className="relative flex h-full flex-col">
                   <div className="flex items-baseline justify-between gap-3">
-                    <span className="text-[13px] font-semibold text-greyo-muted">그래요</span>
+                    <span className="text-[13px] font-semibold text-greyo-muted">
+                      {view.brandPrefix}
+                    </span>
                     <span className="text-[10px] font-bold tracking-[0.1em] text-greyo-faint uppercase">
                       {item.roman}
                     </span>
